@@ -1,0 +1,225 @@
+.event-manage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+.event-manage__main {
+  flex: 1;
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.button {
+  background: var(--primary-gradient);
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: filter 0.3s ease;
+}
+
+.button:hover {
+  filter: var(--button-hover);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal__content {
+  background: var(--bg-card);
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: var(--dropdown-shadow);
+}
+
+.modal__actions {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+/* EventDetails Styles */
+.event-details__field {
+  margin-bottom: 16px;
+}
+
+.event-details__field label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+
+.event-details__field input,
+.event-details__field textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-secondary);
+  color: var(--text-main);
+}
+
+.event-details__field textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* SubmissionsGrid Styles */
+.submissions-grid__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px; /* Increased margin for better spacing */
+}
+
+.submissions-grid__items {
+  display: flex; /* Switch to Flexbox */
+  flex-wrap: wrap; /* Allow items to wrap */
+  gap: 24px; /* Increased gap for better spacing between items */
+  justify-content: center; /* Align items to the start, can change to center if preferred */
+}
+
+.submissions-grid__item {
+  flex: 0 1 calc(20% - 24px); /* Each item takes ~20% of the container width, adjusted for gap */
+  text-align: center;
+  min-width: 150px; /* Ensure items don't shrink too much on smaller screens */
+}
+
+.submissions-grid__item img {
+  width: 100%;
+  height: 150px; /* Fixed height for consistency */
+  object-fit: cover; /* Ensure images scale nicely */
+  border-radius: 8px; /* Slightly larger border-radius for a softer look */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Add transform for hover effect */
+}
+
+.submissions-grid__item img:hover {
+  opacity: 0.8;
+  transform: scale(1.05); /* Slight zoom on hover for better interaction */
+}
+
+.submissions-grid__item p {
+  margin-top: 12px; /* More spacing between image and text */
+  color: var(--text-secondary);
+  font-size: 14px; /* Slightly smaller font for better hierarchy */
+}
+
+/* EndTimeSection Styles */
+.end-time__field {
+  margin-bottom: 16px;
+}
+
+.end-time__field label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+
+.end-time__field input {
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-secondary);
+  color: var(--text-main);
+}
+
+.end-time p {
+  margin: 16px 0;
+  color: var(--text);
+}
+
+/* ChooseWinnersModal Styles */
+.choose-winners__field {
+  margin-bottom: 16px;
+}
+
+.choose-winners__field label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+
+.choose-winners__field select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-secondary);
+  color: var(--text-main);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .event-manage__main {
+    padding: 16px;
+  }
+
+  .modal__content {
+    width: 95%;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .submissions-grid__items {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .submissions-grid__item {
+    flex: 0 1 calc(25% - 24px); /* 4 items per row on medium screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .submissions-grid__item {
+    flex: 0 1 calc(33.33% - 24px); /* 3 items per row on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .submissions-grid__item {
+    flex: 0 1 calc(50% - 24px); /* 2 items per row on very small screens */
+    min-width: 120px; /* Adjust min-width for tiny screens */
+  }
+
+  .submissions-grid__item img {
+    height: 120px; /* Smaller height for smaller screens */
+  }
+}

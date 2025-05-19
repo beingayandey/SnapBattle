@@ -1,0 +1,143 @@
+.event-basic-info.card {
+  background: var(--bg-card);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 360px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.625rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-main);
+  background: var(--bg-secondary);
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.form-group input::placeholder,
+.form-group select:invalid {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.add-category-input {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.add-category-button {
+  padding: 0.625rem 1rem;
+  background: var(--primary-gradient);
+  color: var(--bg-card);
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: filter 0.2s, transform 0.1s;
+}
+
+.add-category-button:hover:not(:disabled) {
+  filter: var(--button-hover);
+  transform: translateY(-1px);
+}
+
+.add-category-button:active {
+  transform: translateY(0);
+}
+
+.add-category-button:disabled {
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 360px) {
+  .event-basic-info.card {
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  .card-title {
+    font-size: 1.125rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .add-category-button {
+    font-size: 0.8125rem;
+  }
+
+  .form-group label {
+    font-size: 0.8125rem;
+  }
+
+  .add-category-input {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .add-category-button {
+    width: 100%;
+  }
+}
+
+@media (min-width: 361px) and (max-width: 600px) {
+  .event-basic-info.card {
+    padding: 1.25rem;
+    max-width: 100%;
+  }
+
+  .add-category-input {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .add-category-button {
+    width: 100%;
+  }
+}

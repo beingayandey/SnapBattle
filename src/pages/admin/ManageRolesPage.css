@@ -1,0 +1,119 @@
+.manage-roles-page {
+  padding: 1.5rem;
+  background: var(--bg-main);
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+}
+
+.loading {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.role-table-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.assign-role-btn {
+  background: var(--primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.assign-role-btn:hover {
+  background: var(--primary);
+  filter: var(--button-hover);
+}
+
+.table-wrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  overflow-x: auto;
+}
+
+.role-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.role-table th,
+.role-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.role-table th {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.role-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+}
+
+.role-admin {
+  background: var(--danger);
+}
+
+.role-moderator {
+  background: var(--primary);
+}
+
+.role-judge {
+  background: var(--success);
+}
+
+.edit-btn {
+  background: var(--accent);
+  color: white;
+  padding: 0.375rem 0.75rem;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.edit-btn:hover {
+  filter: var(--button-hover);
+}
+
+.card-view {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .table-wrapper {
+    display: none;
+  }
+  .card-view {
+    display: block;
+  }
+}

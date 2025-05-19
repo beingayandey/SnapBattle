@@ -1,0 +1,91 @@
+.role-table-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.assign-role-btn {
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: filter 0.2s;
+}
+
+.assign-role-btn:hover {
+  filter: var(--button-hover);
+}
+
+.table-wrapper {
+  background: var(--bg-card);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+}
+
+.role-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.role-table th,
+.role-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.role-table th {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.role-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  color: white;
+}
+
+.role-admin {
+  background: var(--danger);
+}
+
+.role-moderator {
+  background: var(--primary);
+}
+
+.role-judge {
+  background: var(--success);
+}
+
+.edit-btn {
+  background: var(--accent);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.edit-btn:hover {
+  filter: var(--button-hover);
+}
+
+.card-view {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .table-wrapper {
+    display: none;
+  }
+  .card-view {
+    display: block;
+  }
+}
