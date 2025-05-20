@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
 const ActiveEvents = ({ theme = "light" }) => {
@@ -37,7 +37,12 @@ const ActiveEvents = ({ theme = "light" }) => {
     <div
       className={clsx("active-events-container", theme === "dark" && "dark")}
     >
-      <h2 className="active-events-title">Active Events</h2>
+      <div className="d-flex justify-content-between align-items-center mb-2">
+        <h2 className="active-events-title">Active Events </h2>
+        <Link to="/admin/events" className="see-all-events-btn">
+          See All Events
+        </Link>
+      </div>
       <div className="table-wrapper">
         <table className="active-events-table">
           <thead>

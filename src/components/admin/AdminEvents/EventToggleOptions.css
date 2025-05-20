@@ -1,0 +1,42 @@
+.toggle-options {
+  margin-bottom: 20px;
+}
+
+.toggle-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.toggle-checkbox {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.toggle-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .toggle-options {
+    margin-bottom: 16px;
+  }
+
+  .toggle-group {
+    margin-bottom: 10px;
+  }
+
+  .toggle-checkbox {
+    width: 14px;
+    height: 14px;
+  }
+
+  .toggle-label {
+    font-size: 0.8125rem;
+  }
+}

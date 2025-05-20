@@ -1,0 +1,31 @@
+.edit-event-page {
+  min-height: 100vh;
+  background: var(--bg-main);
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.edit-event-container {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.edit-event-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .edit-event-page {
+    padding: 12px;
+  }
+
+  .edit-event-title {
+    font-size: 1.5rem;
+  }
+}

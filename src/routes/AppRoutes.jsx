@@ -9,6 +9,11 @@ import UserDashboard from "../pages/user/UserDashboard";
 import EventManagePage from "../pages/admin/EventManagePage";
 import CreateEventPage from "../pages/admin/CreateEventPage";
 import ManageRolesPage from "../pages/admin/ManageRolesPage";
+import AdminSettingsPage from "../pages/admin/AdminSettingsPage";
+import AdminReportsPage from "../pages/admin/AdminReportsPage";
+import AdminEventsPage from "../pages/admin/AdminEventsPage";
+import AdminEventSubmissionsPage from "../pages/admin/AdminEventSubmissionsPage";
+import EditEventPage from "../pages/admin/EditEventPage";
 
 const AppRoutes = () => {
   return (
@@ -27,6 +32,15 @@ const AppRoutes = () => {
             />
             <Route path="/admin/create-event" element={<CreateEventPage />} />
             <Route path="/admin/roles" element={<ManageRolesPage />} />
+            <Route path="/admin/settings" element={<AdminSettingsPage />} />
+            <Route path="/admin/reports" element={<AdminReportsPage />} />
+            <Route path="/admin/events" element={<AdminEventsPage />} />
+            <Route
+              path="/admin/events/:eventId/submissions"
+              element={<AdminEventSubmissionsPage />}
+            />
+
+            <Route path="/admin/events/:id/edit" element={<EditEventPage />} />
 
             {/* Add more nested admin routes here */}
           </Route>

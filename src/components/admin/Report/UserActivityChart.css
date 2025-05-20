@@ -1,0 +1,26 @@
+.report-box {
+  background: var(--bg-card);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 16px;
+  color: var(--text-main);
+  border: 1px solid var(--border);
+}
+
+.report-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.report-header h2 {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.chart-content {
+  display: flex;
+  justify-content: center;
+}

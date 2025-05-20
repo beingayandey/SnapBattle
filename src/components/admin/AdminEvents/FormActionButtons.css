@@ -1,0 +1,47 @@
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.action-button {
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.action-button:hover {
+  filter: var(--button-hover);
+  transform: translateY(-1px);
+}
+
+.action-button:active {
+  transform: translateY(0);
+}
+
+.action-button-cancel {
+  background: var(--danger);
+  color: white;
+}
+
+.action-button-save {
+  background: var(--success);
+  color: white;
+}
+
+@media (max-width: 640px) {
+  .form-actions {
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .action-button {
+    padding: 6px 12px;
+    font-size: 0.8125rem;
+  }
+}

@@ -1,0 +1,49 @@
+.event-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, filter 0.2s;
+}
+
+.view-btn {
+  background: var(--primary);
+  color: var(--bg-card);
+}
+
+.view-btn:hover {
+  filter: var(--button-hover);
+}
+
+.edit-btn {
+  background: var(--secondary);
+  color: var(--bg-card);
+}
+
+.edit-btn:hover {
+  filter: var(--button-hover);
+}
+
+.delete-btn {
+  background: var(--danger);
+  color: var(--bg-card);
+}
+
+.delete-btn:hover {
+  filter: var(--button-hover);
+}
+
+.toggle-voting-btn {
+  background: var(--warning);
+  color: var(--bg-card);
+}
+
+.toggle-voting-btn:hover {
+  filter: var(--button-hover);
+}

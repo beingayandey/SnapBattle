@@ -20,12 +20,12 @@ const QuickActions = ({ theme = "light" }) => {
     {
       label: "Settings",
       icon: <FaCog />,
-      onClick: () => console.log("Navigate to Settings"), // Placeholder
+      onClick: () => navigate("/admin/settings"), // Placeholder
     },
     {
       label: "View Reports",
       icon: <FaChartBar />,
-      onClick: () => console.log("Navigate to Reports"), // Placeholder
+      onClick: () => navigate("/admin/reports"), // Placeholder
     },
   ];
 

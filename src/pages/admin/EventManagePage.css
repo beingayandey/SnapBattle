@@ -182,6 +182,10 @@
   background: var(--bg-secondary);
   color: var(--text-main);
 }
+.event-manage__main .card.submissions-grid {
+  display: flex;
+  flex-direction: column;
+}
 
 /* Responsive Styles */
 @media (max-width: 768px) {
@@ -211,12 +215,16 @@
   .submissions-grid__item {
     flex: 0 1 calc(33.33% - 24px); /* 3 items per row on smaller screens */
   }
+  .event-manage__main .submissions-grid__header {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
-  .submissions-grid__item {
+  .event-manage__main .submissions-grid__item {
     flex: 0 1 calc(50% - 24px); /* 2 items per row on very small screens */
-    min-width: 120px; /* Adjust min-width for tiny screens */
+    min-width: 270px; /* Adjust min-width for tiny screens */
   }
 
   .submissions-grid__item img {

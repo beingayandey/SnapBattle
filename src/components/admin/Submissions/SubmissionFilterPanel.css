@@ -1,0 +1,49 @@
+.filter-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  background: var(--bg-card);
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-group label {
+  font-size: 14px;
+  color: var(--text-main);
+}
+
+.filter-group select,
+.filter-group input[type="date"],
+.filter-group input[type="number"] {
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 14px;
+  background: var(--bg-secondary);
+  color: var(--text-main);
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.filter-group label input[type="checkbox"] {
+  margin-right: 8px;
+  accent-color: var(--primary);
+}
+
+@media (max-width: 768px) {
+  .filter-group {
+    width: 100%;
+  }
+}

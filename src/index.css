@@ -156,7 +156,18 @@ a {
 ul.dropdown-menu li {
   list-style: none;
 }
-
+.d-flex {
+  display: flex;
+}
+.justify-content-between {
+  justify-content: space-between;
+}
+.align-items-center {
+  align-items: center;
+}
+.mb-2 {
+  margin-bottom: 1.5rem;
+}
 main {
   flex: 1;
   padding: 2rem 0;
@@ -255,5 +266,10 @@ main {
 @media (min-width: 2560px) {
   .container {
     max-width: 2560px !important;
+  }
+}
+@media (min-width: 480px) {
+  .container {
+    padding-inline: 0 !important;
   }
 }
