@@ -1,0 +1,25 @@
+.admin-submissions-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background: var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+.admin-submissions-page h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--text-main);
+}
+
+@media (max-width: 768px) {
+  .admin-submissions-page {
+    padding: 1rem;
+  }
+
+  .admin-submissions-page h1 {
+    font-size: 1.25rem;
+  }
+}

@@ -1,0 +1,98 @@
+.submission-table-container {
+  overflow-x: auto;
+  background: var(--bg-card);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+
+.submission-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.submission-table th,
+.submission-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.submission-table th {
+  font-weight: 600;
+  color: var(--text-main);
+  background: var(--bg-secondary);
+}
+
+.submission-table td {
+  color: var(--text-main);
+}
+
+.submission-reviewed {
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.submission-table .submission-thumbnail {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.status-pending {
+  color: var(--warning);
+}
+
+.status-approved {
+  color: var(--success);
+}
+
+.status-rejected {
+  color: var(--danger);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.pagination button {
+  padding: 0.5rem 1rem;
+  background: var(--primary);
+  color: var(--bg-card);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+  filter: var(--button-hover);
+  box-shadow: var(--shadow);
+}
+
+.pagination button:disabled {
+  background: var(--text-muted);
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .submission-table {
+    font-size: 0.75rem;
+  }
+
+  .submission-table th,
+  .submission-table td {
+    padding: 0.5rem;
+  }
+
+  .submission-table .submission-thumbnail {
+    width: 40px;
+    height: 40px;
+  }
+}

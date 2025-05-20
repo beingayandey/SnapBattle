@@ -18,7 +18,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   const navItems = [
     { name: "Dashboard", icon: <FaTachometerAlt />, path: "/admin/dashboard" },
     { name: "Events", icon: <FaCalendarAlt />, path: "/admin/events" },
-    { name: "Submissions", icon: <FaImages />, path: "/admin/submissions" },
+    { name: "Submissions", icon: <FaImages />, path: "/admin/submission" },
     { name: "Voting", icon: <FaVoteYea />, path: "/admin/voting" },
     { name: "Stats", icon: <FaChartBar />, path: "/admin/stats" },
     { name: "Users", icon: <FaUsers />, path: "/admin/users" },

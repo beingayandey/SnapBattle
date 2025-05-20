@@ -38,7 +38,7 @@
 .event-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 900px; /* Ensures table is wide enough to prevent column squishing */
+  min-width: 9event-manage__main00px; /* Ensures table is wide enough to prevent column squishing */
 }
 
 .event-table th {

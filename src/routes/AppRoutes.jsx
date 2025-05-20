@@ -14,6 +14,7 @@ import AdminReportsPage from "../pages/admin/AdminReportsPage";
 import AdminEventsPage from "../pages/admin/AdminEventsPage";
 import AdminEventSubmissionsPage from "../pages/admin/AdminEventSubmissionsPage";
 import EditEventPage from "../pages/admin/EditEventPage";
+import SubmissionsPage from "../pages/admin/SubmissionsPage";
 
 const AppRoutes = () => {
   return (
@@ -41,6 +42,7 @@ const AppRoutes = () => {
             />
 
             <Route path="/admin/events/:id/edit" element={<EditEventPage />} />
+            <Route path="/admin/submission" element={<SubmissionsPage />} />
 
             {/* Add more nested admin routes here */}
           </Route>

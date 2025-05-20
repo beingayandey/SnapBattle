@@ -62,7 +62,9 @@
 .submission-image:hover {
   transform: scale(1.02);
 }
-
+.submission-details-modal img {
+  width: 100%;
+}
 .submission-info {
   display: flex;
   flex-direction: column;

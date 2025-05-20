@@ -1,0 +1,51 @@
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.action-button {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.action-button:hover:not(:disabled) {
+  filter: var(--button-hover);
+  box-shadow: var(--shadow);
+}
+
+.action-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.action-button.approve {
+  background: var(--success);
+  color: var(--bg-card);
+}
+
+.action-button.reject {
+  background: var(--danger);
+  color: var(--bg-card);
+}
+
+.action-button.delete {
+  background: var(--text-muted);
+  color: var(--bg-card);
+}
+
+.action-button.view {
+  background: var(--primary);
+  color: var(--bg-card);
+}
+
+@media (max-width: 768px) {
+  .action-button {
+    padding: 0.4rem;
+    font-size: 0.75rem;
+  }
+}
