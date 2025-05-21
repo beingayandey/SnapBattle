@@ -26,7 +26,16 @@ export const ToastProvider = ({ children }) => {
   };
 
   const showSuccess = (message) => addToast("success", message);
-  const showError = (message) => addToast("error", message);
+  const showError = (message) => {
+    if (typeof message === 'object') {
+      Object.values(message).forEach((errArr) => {
+        errArr.forEach((errMsg) => {
+          console.log(errMsg);
+          addToast("error", errMsg);
+        });
+      });
+    } else addToast("error", message);
+  };
   const showInfo = (message) => addToast("info", message);
 
   return (
@@ -36,13 +45,12 @@ export const ToastProvider = ({ children }) => {
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className={`toast ${
-              toast.type === "success"
+            className={`toast ${toast.type === "success"
                 ? "toast-success"
                 : toast.type === "error"
-                ? "toast-error"
-                : "toast-info"
-            }`}
+                  ? "toast-error"
+                  : "toast-info"
+              }`}
           >
             {toast.message}
             <button

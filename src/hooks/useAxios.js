@@ -42,7 +42,7 @@ const useAxios = () => {
       setError(null);
 
     } catch (error) {
-      setError(error.response ? error.response.data : error.message);
+      setError(error.response.data.errors);
       setResponse(null);
 
     } finally {

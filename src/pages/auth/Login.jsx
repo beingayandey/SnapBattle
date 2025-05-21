@@ -38,7 +38,7 @@ const Login = () => {
       localStorage.setItem('token', response.data.token);
       showSuccess("Login successful!");
     }
-    if (error) showError(error.errors || "Login failed!");
+    if (error) showError(error || "Login failed!");
   }, [response, error])
 
   return (
@@ -55,7 +55,7 @@ const Login = () => {
                 onChange={(e) => setBody({ ...body, email: e.target.value })}
                 className="input-field"
                 placeholder="Email"
-                required
+                
               />
             </div>
           </div>
@@ -69,7 +69,7 @@ const Login = () => {
                 onChange={(e) => setBody({ ...body, password: e.target.value })}
                 className="input-field"
                 placeholder="Password"
-                required
+                
               />
               <button
                 type="button"
