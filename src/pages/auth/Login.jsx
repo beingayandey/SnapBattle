@@ -3,6 +3,8 @@ import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import { useToast } from "../../components/toast/ToastNotification";
+import useAxios from "../../api/useAxios";
+import { loginUser } from "../../api/api";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +12,7 @@ const Login = () => {
   const [theme, setTheme] = useState("light");
   const [showPassword, setShowPassword] = useState(false);
   const { showSuccess, showError } = useToast();
+  const { callApi, loading, error } = useAxios(loginUser);
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
@@ -19,9 +22,22 @@ const Login = () => {
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login submitted", { email, password });
+
+    try {
+      const data = await callApi(email, password); // call the loginUser API
+      if (data?.token) {
+        // Save token or user data as needed (e.g., in localStorage)
+        localStorage.setItem("token", data.token);
+        showSuccess("Logged in successfully!");
+        // Redirect or refresh app state
+      } else {
+        showError("Login failed: Invalid response");
+      }
+    } catch (err) {
+      showError(err?.response?.data?.message || "Login failed");
+    }
   };
 
   return (

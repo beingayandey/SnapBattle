@@ -52,7 +52,7 @@ const AppRoutes = () => {
             {/* Add more nested user routes here */}
           </Route>
           {/* Default Redirect */}
-          {/* <Route path="*" element={<Navigate to="/login" />} /> */}
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </ToastProvider>
     </>
