@@ -10,16 +10,21 @@ import {
   FiEye,
   FiEyeOff,
 } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 import { useToast } from "../../components/toast/ToastNotification";
+import { signupUser } from "../../api/api";
 
 // Yup validation schema
 const schema = yup.object().shape({
   fullName: yup
     .string()
     .required("Full Name is required")
-    .min(3, "Full Name must be at least 3 characters"),
+    .min(3, "Full Name must be at least 3 characters")
+    .test("name-parts", "Please provide a valid full name", (value) => {
+      const nameParts = value.trim().split(/\s+/);
+      return nameParts.length >= 1;
+    }),
   email: yup
     .string()
     .required("Email is required")
@@ -59,22 +64,74 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { showSuccess, showError } = useToast();
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
   const toggleConfirmPasswordVisibility = () =>
     setShowConfirmPassword(!showConfirmPassword);
 
-  const onSubmit = (data) => {
-    const firebaseData = {
-      email: data.email,
-      password: data.password,
-      displayName: data.fullName,
-      phoneNumber: data.phoneNumber,
-    };
+  const onSubmit = async (data) => {
+    try {
+      // Split fullName into first_name, middle_name, and last_name
+      const nameParts = data.fullName.trim().split(/\s+/);
+      let first_name = "";
+      let middle_name = "";
+      let last_name = "";
 
-    console.log("Submitting to Firebase:", firebaseData);
-    showSuccess("Account created successfully!");
-    reset();
+      if (nameParts.length === 1) {
+        first_name = nameParts[0];
+      } else if (nameParts.length === 2) {
+        first_name = nameParts[0];
+        last_name = nameParts[1];
+      } else {
+        first_name = nameParts[0];
+        middle_name = nameParts.slice(1, -1).join(" ");
+        last_name = nameParts[nameParts.length - 1];
+      }
+
+      // Prepare data for API
+      const apiData = {
+        first_name,
+        middle_name,
+        last_name,
+        email: data.email,
+        phoneNumber: data.phoneNumber,
+        password: data.password,
+        confirmPassword: data.confirmPassword,
+      };
+
+      // Call the signup API
+      await signupUser(apiData);
+      showSuccess("Account created successfully!");
+
+      // Log the email to debug
+      console.log("Email before navigation:", data.email);
+
+      // Check if email is defined before navigating
+      if (!data.email) {
+        throw new Error("Email is undefined after signup.");
+      }
+
+      // Navigate to login page with email as a query parameter
+      navigate(`/login?email=${encodeURIComponent(data.email)}`);
+
+      // Reset the form after navigation
+      reset();
+    } catch (error) {
+      if (error.response?.data?.errors) {
+        const errorMessages = Object.values(error.response.data.errors).flat();
+        const errorMessage =
+          errorMessages.join(", ") || "Failed to create account.";
+        showError(errorMessage);
+      } else if (error.response?.data?.message) {
+        showError(error.response.data.message);
+      } else {
+        showError(
+          error.message || "Failed to create account. Please try again."
+        );
+      }
+      console.error("Signup error:", error);
+    }
   };
 
   return (
@@ -210,7 +267,7 @@ const Signup = () => {
         <p className="login-text">
           Already have an account?{" "}
           <Link to="/login" className="login-link">
-            Sign In
+            Log In
           </Link>
         </p>
       </div>

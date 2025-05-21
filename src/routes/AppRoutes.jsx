@@ -15,15 +15,17 @@ import AdminEventsPage from "../pages/admin/AdminEventsPage";
 import AdminEventSubmissionsPage from "../pages/admin/AdminEventSubmissionsPage";
 import EditEventPage from "../pages/admin/EditEventPage";
 import SubmissionsPage from "../pages/admin/SubmissionsPage";
+import ProtectedRoute from "../ProtectedRoute"; // Import ProtectedRoute
 
 const AppRoutes = () => {
   return (
-    <>
-      <ToastProvider>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          {/* Admin Routes */}
+    <ToastProvider>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+
+        {/* Admin Routes */}
+        <Route element={<ProtectedRoute allowedRole="admin" />}>
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
             <Route path="dashboard" element={<AdminDashboard />} />
@@ -31,31 +33,31 @@ const AppRoutes = () => {
               path="events/:eventId/manage"
               element={<EventManagePage />}
             />
-            <Route path="/admin/create-event" element={<CreateEventPage />} />
-            <Route path="/admin/roles" element={<ManageRolesPage />} />
-            <Route path="/admin/settings" element={<AdminSettingsPage />} />
-            <Route path="/admin/reports" element={<AdminReportsPage />} />
-            <Route path="/admin/events" element={<AdminEventsPage />} />
+            <Route path="create-event" element={<CreateEventPage />} />
+            <Route path="roles" element={<ManageRolesPage />} />
+            <Route path="settings" element={<AdminSettingsPage />} />
+            <Route path="reports" element={<AdminReportsPage />} />
+            <Route path="events" element={<AdminEventsPage />} />
             <Route
-              path="/admin/events/:eventId/submissions"
+              path="events/:eventId/submissions"
               element={<AdminEventSubmissionsPage />}
             />
-
-            <Route path="/admin/events/:id/edit" element={<EditEventPage />} />
-            <Route path="/admin/submission" element={<SubmissionsPage />} />
-
-            {/* Add more nested admin routes here */}
+            <Route path="events/:id/edit" element={<EditEventPage />} />
+            <Route path="submission" element={<SubmissionsPage />} />
           </Route>
-          {/* User Routes */}
+        </Route>
+
+        {/* User Routes */}
+        <Route element={<ProtectedRoute allowedRole="user" />}>
           <Route path="/user" element={<UserLayout />}>
             <Route path="dashboard" element={<UserDashboard />} />
-            {/* Add more nested user routes here */}
           </Route>
-          {/* Default Redirect */}
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Routes>
-      </ToastProvider>
-    </>
+        </Route>
+
+        {/* Default Redirect */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </ToastProvider>
   );
 };
 
