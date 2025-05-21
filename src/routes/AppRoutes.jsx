@@ -15,7 +15,8 @@ import AdminEventsPage from "../pages/admin/AdminEventsPage";
 import AdminEventSubmissionsPage from "../pages/admin/AdminEventSubmissionsPage";
 import EditEventPage from "../pages/admin/EditEventPage";
 import SubmissionsPage from "../pages/admin/SubmissionsPage";
-import ProtectedRoute from "../ProtectedRoute"; // Import ProtectedRoute
+import ProtectedRoute from "../ProtectedRoute";
+import AdminVotingPage from "../pages/admin/AdminVotingPage";
 
 const AppRoutes = () => {
   return (
@@ -44,6 +45,7 @@ const AppRoutes = () => {
             />
             <Route path="events/:id/edit" element={<EditEventPage />} />
             <Route path="submission" element={<SubmissionsPage />} />
+            <Route path="voting" element={<AdminVotingPage />} />
           </Route>
         </Route>
 
