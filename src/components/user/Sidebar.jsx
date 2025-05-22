@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { Tooltip } from "react-tooltip";
 import {
   HiOutlineHome,
   HiOutlineUpload,
@@ -62,19 +63,32 @@ function Sidebar({ isOpen, toggleSidebar }) {
         </div>
         <nav className="sidebar-nav">
           {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.end}
-              className={({ isActive }) =>
-                `sidebar-link ${isActive ? "active" : ""}`
-              }
-              onClick={() => window.innerWidth <= 768 && toggleSidebar()}
-            >
-              <span className="sidebar-icon">{item.icon}</span>
-              <span className="sidebar-label">{item.label}</span>
-              <span className="sidebar-tooltip">{item.label}</span>
-            </NavLink>
+            <>
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.end}
+                className={({ isActive }) =>
+                  `sidebar-link ${isActive ? "active" : ""}`
+                }
+                onClick={() => window.innerWidth <= 768 && toggleSidebar()}
+                data-tooltip-id={
+                  isCollapsed ? `tooltip-${item.label}` : undefined
+                }
+                data-tooltip-content={isCollapsed ? item.label : undefined}
+              >
+                <span className="sidebar-icon">{item.icon}</span>
+                <span className="sidebar-label">{item.label}</span>
+              </NavLink>
+              {isCollapsed && (
+                <Tooltip
+                  id={`tooltip-${item.label}`}
+                  place="right"
+                  className="custom-tooltip"
+                  delayShow={200}
+                />
+              )}
+            </>
           ))}
         </nav>
       </div>

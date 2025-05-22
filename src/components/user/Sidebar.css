@@ -73,7 +73,6 @@
   text-decoration: none;
   border-radius: 8px;
   transition: background 0.2s, border-color 0.2s, transform 0.1s, color 0.2s;
-  position: relative;
 }
 
 .sidebar-link:hover {
@@ -99,37 +98,10 @@
 .sidebar-label {
   font-size: 0.95rem;
   font-weight: 500;
-  transition: opacity 0.2s;
-}
-
-.sidebar-tooltip {
-  display: none;
-  position: absolute;
-  left: calc(100% + 0.75rem);
-  background: var(--dropdown-bg);
-  color: var(--text-main);
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  box-shadow: var(--dropdown-shadow);
-  font-size: 0.85rem;
-  white-space: nowrap;
-  z-index: 1000;
-  transform: translateY(-50%);
-  top: 50%;
 }
 
 .sidebar.collapsed .sidebar-label {
-  opacity: 0;
-  width: 0;
-}
-
-.sidebar.collapsed .sidebar-link {
-  justify-content: center;
-  padding: 0.75rem;
-}
-
-.sidebar.collapsed .sidebar-link:hover .sidebar-tooltip {
-  display: block;
+  display: none;
 }
 
 .sidebar.collapsed .sidebar-header .sidebar-collapse {
@@ -137,6 +109,31 @@
   width: 100%;
 }
 
+/* Style the react-tooltip */
+.custom-tooltip {
+  background: var(--dropdown-bg) !important;
+  color: var(--text-main) !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 6px !important;
+  box-shadow: var(--dropdown-shadow) !important;
+  font-size: 0.85rem !important;
+  z-index: 1000 !important;
+}
+.sidebar-icon svg {
+  max-width: unset;
+}
+
+@media (min-width: 768px) {
+  .sidebar.collapsed .sidebar-link {
+    padding: 0;
+    width: 30px;
+    height: 50px;
+  }
+  .sidebar.collapsed .sidebar-link {
+    justify-content: center;
+    padding: 0.75rem;
+  }
+}
 @media (max-width: 768px) {
   .sidebar {
     width: var(--sidebar-width-expanded);
@@ -160,11 +157,7 @@
   }
 
   .sidebar-label {
-    opacity: 1;
-  }
-
-  .sidebar-tooltip {
-    display: none;
+    display: block !important;
   }
 
   .sidebar-link.active {
