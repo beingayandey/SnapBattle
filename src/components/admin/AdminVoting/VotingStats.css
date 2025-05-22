@@ -1,0 +1,8 @@
+/* VotingStats.css */
+.voting-stats {
+  padding: 1rem;
+}
+
+.voting-stats canvas {
+  max-height: 300px;
+}

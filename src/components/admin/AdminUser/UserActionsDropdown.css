@@ -1,0 +1,44 @@
+.user-actions-dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: filter 0.2s;
+}
+
+.dropdown-toggle:hover {
+  filter: var(--button-hover);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--dropdown-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: var(--dropdown-shadow);
+  min-width: 120px;
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 0;
+  z-index: 10;
+}
+
+.dropdown-menu li {
+  padding: 0.5rem 1rem;
+  color: var(--text-main);
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.dropdown-menu li:hover {
+  background: var(--bg-secondary);
+}

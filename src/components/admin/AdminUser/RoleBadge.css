@@ -1,0 +1,23 @@
+.role-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.role-admin {
+  background: var(--primary);
+  color: white;
+}
+
+.role-editor {
+  background: var(--success);
+  color: white;
+}
+
+.role-user {
+  background: var(--text-muted);
+  color: var(--bg-card);
+}

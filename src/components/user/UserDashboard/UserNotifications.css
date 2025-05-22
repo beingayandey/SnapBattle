@@ -1,0 +1,129 @@
+.user-notifications {
+  background: var(--bg-card);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: var(--shadow);
+  width: 100%;
+}
+
+.notifications-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-main);
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.notifications-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notification-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.notification-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: var(--primary);
+  border-radius: 50%;
+}
+
+.notification-message {
+  color: var(--text-main);
+  font-size: 0.75rem;
+  padding-left: 1rem;
+}
+
+.notification-time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  padding-left: 1rem;
+}
+
+@media (min-width: 768px) {
+  .user-notifications {
+    padding: 1.5rem;
+  }
+
+  .notifications-title {
+    font-size: 1.5rem;
+    text-align: left;
+  }
+
+  .notification-item {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    transition: background 0.2s ease;
+  }
+
+  .notification-item::before {
+    display: none;
+  }
+
+  .notification-item:hover {
+    background: var(--sidebar-hover-bg);
+  }
+
+  .notification-message {
+    font-size: 0.875rem;
+    padding-left: 0;
+    flex: 3;
+  }
+
+  .notification-time {
+    font-size: 0.875rem;
+    padding-left: 0;
+    flex: 1;
+    text-align: right;
+  }
+}
+
+@media (min-width: 1024px) {
+  .user-notifications {
+    padding: 2rem;
+  }
+
+  .notifications-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .notification-item {
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .notification-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--dropdown-shadow);
+  }
+
+  .notification-message {
+    font-size: 1rem;
+  }
+
+  .notification-time {
+    font-size: 1rem;
+  }
+}

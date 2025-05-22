@@ -1,0 +1,126 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: var(--header-bg);
+  box-shadow: var(--header-shadow);
+  z-index: 1000;
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 100%;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.notification {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.notification-icon {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.notification-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--danger);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.user-avatar {
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background: var(--dropdown-bg);
+  box-shadow: var(--dropdown-shadow);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1001;
+}
+
+.user-dropdown a {
+  display: block;
+  padding: 0.75rem 1.5rem;
+  color: var(--text-main);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.user-dropdown a:hover {
+  background: var(--sidebar-hover-bg);
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .navbar-content {
+    padding: 0 1rem;
+  }
+
+  .navbar-logo {
+    font-size: 1.25rem;
+  }
+}

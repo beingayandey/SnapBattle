@@ -1,0 +1,35 @@
+/* VotingEventList.css */
+.voting-event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.event-list-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--sidebar-text);
+  margin-bottom: 0.5rem;
+}
+
+.voting-event-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.event-item {
+  padding: 0.75rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.event-item:hover {
+  background: var(--sidebar-hover-bg);
+}
+
+.event-item.active {
+  background: var(--sidebar-active-bg);
+  color: var(--bg-card);
+  border-left: 3px solid var(--active-border);
+}

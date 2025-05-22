@@ -1,0 +1,86 @@
+.admin-stats-page {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.admin-stats-page h1 {
+  font-size: 1.875rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: var(--text-main);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* When zoomed, change the grid layout */
+.stats-grid.zoomed {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Wrapper for each card to handle click and zoom */
+.card-wrapper {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+/* Hide components that are not zoomed */
+.card-wrapper.hidden {
+  display: none;
+}
+
+/* Style for the zoomed card */
+.card-wrapper.zoomed-card {
+  transform: scale(1.2); /* Slightly larger scale */
+  width: 90%; /* Take up more space */
+  max-width: 800px; /* Limit the max width */
+  z-index: 10;
+}
+
+/* Style for the close button */
+.close-zoom-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--danger);
+  color: var(--text-main);
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  z-index: 11;
+}
+
+.close-zoom-btn:hover {
+  filter: var(--button-hover);
+}
+
+@media (max-width: 768px) {
+  .admin-stats-page {
+    padding: 1rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-wrapper.zoomed-card {
+    transform: scale(
+      1
+    ); /* Avoid scaling on small screens to prevent overflow */
+    width: 100%;
+    max-width: none;
+  }
+}

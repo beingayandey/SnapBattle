@@ -1,0 +1,74 @@
+.user-table-container {
+  background: var(--bg-card);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table th,
+.user-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.user-table th {
+  background: var(--bg-secondary);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.user-table td {
+  color: var(--text-main);
+}
+
+.no-users {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.pagination button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.pagination button:disabled {
+  background: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.pagination button:not(:disabled):hover {
+  filter: var(--button-hover);
+}
+
+@media (max-width: 768px) {
+  .user-table th,
+  .user-table td {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
