@@ -1,0 +1,20 @@
+.user-activity-chart {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.user-activity-chart h2 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: var(--text-main);
+}
+
+/* Increase the chart height */
+.user-activity-chart canvas {
+  height: 400px !important; /* Increase the height of the chart */
+  width: 100% !important; /* Ensure it takes full width */
+}

@@ -1,0 +1,30 @@
+.export-user-data {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.export-user-data button {
+  background: var(--secondary);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: filter 0.2s;
+}
+
+.export-user-data button:hover {
+  filter: var(--button-hover);
+}
+
+@media (max-width: 768px) {
+  .export-user-data {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .export-user-data button {
+    width: 100%;
+  }
+}

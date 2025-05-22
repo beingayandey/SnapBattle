@@ -9,7 +9,7 @@ import { MdOutlineBarChart } from "react-icons/md";
 
 const AdminReportsPage = () => {
   return (
-    <div className="dashboard-container">
+    <>
       <div className="dashboard-header">
         <MdOutlineBarChart size={32} />
         <h1>Admin Reports Dashboard</h1>
@@ -21,7 +21,7 @@ const AdminReportsPage = () => {
         <PeakHoursGraph />
         <ExportReportPanel />
       </div>
-    </div>
+    </>
   );
 };
 
