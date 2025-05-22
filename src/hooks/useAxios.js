@@ -63,7 +63,7 @@ const useAxios = () => {
       setError(null);
     } catch (error) {
       // Store the error in the error state
-      setError(error.response ? error.response.data : error.message);
+      setError(error.response.data.errors);
       setResponse(null);
     } finally {
       // Set the loading state to false
