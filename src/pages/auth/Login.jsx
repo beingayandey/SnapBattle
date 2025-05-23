@@ -48,6 +48,8 @@ const Login = () => {
       const response = await loginUser(body.loginId, body.password);
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("role", response.data.user.roles[0]);
+      localStorage.setItem("userId", response.data.user._id);
+      localStorage.setItem("justLoggedIn", "true");
       setBody({ loginId: "", password: "" });
       showSuccess("Login successful!");
       await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -123,7 +125,6 @@ const Login = () => {
                 onChange={(e) => setBody({ ...body, password: e.target.value })}
                 className="input-field"
                 placeholder="Password"
-                
               />
               <button
                 type="button"

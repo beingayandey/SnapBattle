@@ -4,8 +4,6 @@ const ProtectedRoute = ({ allowedRole }) => {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
 
-  console.log("ProtectedRoute checking - token:", !!token, "role:", role); // Debug log
-
   if (!token) {
     return <Navigate to="/login" replace />;
   }

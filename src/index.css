@@ -86,7 +86,7 @@ a {
   /* Special */
   --photo-hover: rgba(0, 0, 0, 0.5);
   --button-hover: brightness(1.1);
-  --header-bg: rgba(255, 255, 255, 0.95);
+  --header-bg: rgba(255, 255, 255, 1);
   --header-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   --nav-hover: var(--primary);
   --active-border: var(--accent);

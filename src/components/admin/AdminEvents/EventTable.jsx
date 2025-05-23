@@ -1,4 +1,6 @@
 import React from "react";
+import { FaPlus } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 import EventRow from "./EventRow";
 import "./EventTable.css";
 
@@ -28,7 +30,13 @@ const EventTable = ({
             </option>
           ))}
         </select>
+        <div className="create-event-button action-button">
+          <Link to={"/admin/create-event"}>
+            <FaPlus /> Create Event
+          </Link>
+        </div>
       </div>
+
       <div className="table-wrapper">
         <table className="event-table">
           <thead>

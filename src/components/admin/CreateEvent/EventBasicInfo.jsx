@@ -1,14 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./EventBasicInfo.css";
+import { getCategoryList } from "../../../api/api";
 
 const EventBasicInfo = ({ title, subtitle, category, onChange }) => {
-  // Initial categories (could be fetched from an API or config)
-  const [categories, setCategories] = useState([
-    "Photography",
-    "Nature",
-    "Portrait",
-    "Street",
-  ]);
+  // Initialize categories as an empty array to avoid undefined
+  const [categories, setCategories] = useState([]);
   const [newCategory, setNewCategory] = useState("");
 
   const handleAddCategory = (e) => {
@@ -17,10 +13,31 @@ const EventBasicInfo = ({ title, subtitle, category, onChange }) => {
       const updatedCategories = [...categories, newCategory.trim()];
       setCategories(updatedCategories);
       setNewCategory("");
+      // Update the form's category to the newly added one
+      onChange({ target: { name: "category", value: newCategory.trim() } });
       // Optionally save to backend or local storage
       // Example: localStorage.setItem('eventCategories', JSON.stringify(updatedCategories));
     }
   };
+
+  const categoryData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await getCategoryList(token);
+      console.log(response.data);
+      // Ensure response.data.categories is an array and map to names
+      setCategories(response.data.categories?.map((cat) => cat.name) || []);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+      setCategories([]); // Fallback to empty array on error
+    }
+  };
+
+  useEffect(() => {
+    categoryData();
+  }, []);
+
+  console.log("categories:", categories);
 
   return (
     <div className="event-basic-info card">
@@ -38,14 +55,14 @@ const EventBasicInfo = ({ title, subtitle, category, onChange }) => {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="subtitle">Subtitle</label>
+        <label htmlFor="description">Subtitle</label>
         <input
           type="text"
-          id="subtitle"
-          name="subtitle"
+          id="description"
+          name="description"
           value={subtitle}
           onChange={onChange}
-          placeholder="Event subtitle"
+          placeholder="Enter event subtitle"
         />
       </div>
       <div className="form-group">
@@ -58,32 +75,41 @@ const EventBasicInfo = ({ title, subtitle, category, onChange }) => {
           required
         >
           <option value="">Select category</option>
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
+          {categories.length > 0 ? (
+            categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))
+          ) : (
+            <option value="" disabled>
+              No categories available
             </option>
-          ))}
+          )}
+          <option value="others">Others</option>
         </select>
       </div>
-      <div className="form-group add-category">
-        <label>Add Category</label>
-        <div className="add-category-input">
-          <input
-            type="text"
-            value={newCategory}
-            onChange={(e) => setNewCategory(e.target.value)}
-            placeholder="New category"
-          />
-          <button
-            type="button"
-            onClick={handleAddCategory}
-            disabled={!newCategory.trim()}
-            className="add-category-button"
-          >
-            Add
-          </button>
+      {category === "others" && (
+        <div className="form-group add-category">
+          <label>Add Category</label>
+          <div className="add-category-input">
+            <input
+              type="text"
+              value={newCategory}
+              onChange={(e) => setNewCategory(e.target.value)}
+              placeholder="New category"
+            />
+            <button
+              type="button"
+              onClick={handleAddCategory}
+              disabled={!newCategory.trim()}
+              className="add-category-button"
+            >
+              Add
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

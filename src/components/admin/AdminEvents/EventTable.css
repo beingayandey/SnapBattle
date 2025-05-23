@@ -90,6 +90,15 @@
   font-size: 0.875rem;
 }
 
+.create-event-button a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.table-controls {
+  display: flex;
+  justify-content: space-between;
+}
 /* Tablet (max-width: 768px) */
 @media (max-width: 768px) {
   .event-table-container {

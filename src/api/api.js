@@ -19,3 +19,21 @@ export const signupUser = async (data) => {
   });
   return response.data;
 };
+
+export const createEvent = async (data, token) => {
+  const response = await axios.post(`${baseUrl}/api/event/create`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+export const getCategoryList = async (token) => {
+  const response = await axios.get(`${baseUrl}/api/category/list`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
