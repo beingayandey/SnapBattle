@@ -15,7 +15,7 @@ const DashboardOverLays = ({ timer, forceTimerToZero }) => {
     if (hour >= 6 && hour < 12) return "Afternoon";
     if (hour === 12) return "Noon";
     if (hour > 12 && hour <= 16) return "Evening";
-    return "Night";
+    return "Good Morning";
   };
 
   return (

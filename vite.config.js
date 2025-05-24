@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
     force: true,
+    include: ["gsap"],
   },
   server: {
     host: true,
