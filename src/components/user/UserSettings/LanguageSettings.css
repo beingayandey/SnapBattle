@@ -1,0 +1,28 @@
+.language-settings {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow);
+}
+
+.language-settings h2 {
+  font-size: var(--font-size-base);
+  margin-bottom: var(--spacing-md);
+  color: var(--text-main);
+}
+
+.language-select {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-secondary);
+  color: var(--text-main);
+}
+
+@media (max-width: 600px) {
+  .language-settings {
+    padding: var(--spacing-sm);
+  }
+}

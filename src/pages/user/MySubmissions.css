@@ -25,30 +25,29 @@
   gap: 1.5rem;
 }
 
-/* Custom grid placement to mimic Image 1 layout */
-.my-submissions__groups > :nth-child(1) {
-  grid-column: 1 / -1; /* Event 1 spans full width */
+/* .my-submissions__groups > :nth-child(1) {
+  grid-column: 1 / 2;
 }
 
 .my-submissions__groups > :nth-child(2) {
-  grid-column: 1 / 2; /* Event 2 takes 1 column */
+  grid-column: 1 / 2;
 }
 
 .my-submissions__groups > :nth-child(3) {
-  grid-column: 2 / 3; /* Event 3 takes 1 column */
+  grid-column: 2 / 3;
 }
 
 .my-submissions__groups > :nth-child(4) {
-  grid-column: 3 / 4; /* Event 4 takes 1 column */
+  grid-column: 3 / 4;
 }
 
 .my-submissions__groups > :nth-child(5) {
-  grid-column: 1 / 2; /* Event 5 takes 1 column */
+  grid-column: 1 / 2;
 }
 
 .my-submissions__groups > :nth-child(6) {
-  grid-column: 2 / 4; /* Event 6 spans 2 columns */
-}
+  grid-column: 1 / 2;
+} */
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {

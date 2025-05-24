@@ -28,6 +28,9 @@ import VotePage from "../pages/user/VotePage";
 import EventDetailPage from "../components/user/UserVote/EventDetailPage";
 import MyVotes from "../pages/user/MyVotes";
 import NotificationsPage from "../pages/user/NotificationsPage";
+import ProfilePage from "../pages/user/ProfilePage";
+import RulesPage from "../pages/user/RulesPage";
+import SettingsPage from "../pages/user/SettingsPage";
 
 const AppRoutes = () => {
   return (
@@ -75,6 +78,9 @@ const AppRoutes = () => {
             <Route path="vote/:eventId" element={<EventDetailPage />} />
             <Route path="my-votes" element={<MyVotes />} />
             <Route path="notifications" element={<NotificationsPage />} />
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="rules" element={<RulesPage />} />
+            <Route path="settings" element={<SettingsPage />} />
           </Route>
         </Route>
 

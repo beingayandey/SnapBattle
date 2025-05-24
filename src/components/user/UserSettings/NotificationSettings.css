@@ -1,0 +1,46 @@
+.notification-settings {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow);
+}
+
+.notification-settings h2 {
+  font-size: var(--font-size-base);
+  margin-bottom: var(--spacing-md);
+  color: var(--text-main);
+}
+
+.settings-content .toggle-group {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-sm);
+  justify-content: space-around;
+}
+.toggle-item span {
+  margin-right: 5px;
+}
+.settings-content .toggle-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm) 0;
+  color: var(--text-secondary);
+}
+
+.toggle-item input {
+  accent-color: var(--primary);
+}
+
+@media (max-width: 600px) {
+  .notification-settings {
+    padding: var(--spacing-sm);
+  }
+  .settings-content .toggle-group {
+    flex-direction: column;
+  }
+  .notification-settings h2 {
+    font-size: calc(var(--font-size-base) * 0.9);
+  }
+}

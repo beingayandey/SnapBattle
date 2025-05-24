@@ -1,6 +1,7 @@
 import { useState } from "react";
 import NotificationModal from "./NotificationModal";
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 
 function Navbar({ toggleSidebar }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -38,9 +39,9 @@ function Navbar({ toggleSidebar }) {
             </button>
             {isDropdownOpen && (
               <div className="user-dropdown">
-                <a href="/profile">Profile</a>
-                <a href="/settings">Settings</a>
-                <a href="/logout">Logout</a>
+                <Link to="/user/profile">Profile</Link>
+                <Link to="/user/settings">Settings</Link>
+                <Link to="/logout">Logout</Link>
               </div>
             )}
           </div>
