@@ -10,7 +10,7 @@ const Login = () => {
     loginId: "",
     password: "",
   });
-  const [theme, setTheme] = useState("light");
+
   const [showPassword, setShowPassword] = useState(false);
   const [submit, setSubmit] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -31,12 +31,6 @@ const Login = () => {
       setBody((prev) => ({ ...prev, loginId: decodeURIComponent(email) }));
     }
   }, [location]);
-
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
-  };
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
@@ -145,9 +139,6 @@ const Login = () => {
           </button>
         </form>
 
-        <button onClick={toggleTheme} className="theme-toggle">
-          {theme === "light" ? "Dark" : "Light"} Mode
-        </button>
         <p className="signup-text">
           No account?{" "}
           <Link to="/signup" className="signup-link">

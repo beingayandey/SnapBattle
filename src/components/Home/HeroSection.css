@@ -3,15 +3,24 @@
   color: #fff;
   padding: var(--spacing-lg) var(--spacing-md);
   text-align: center;
-  min-height: 60vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: visible;
+  height: 100vh; /* Full viewport height */
+  min-height: auto; /* Override previous min-height */
 }
 
 .hero-content {
   max-width: 800px;
   margin: 0 auto;
+  padding: calc(var(--spacing-md) * 2) var(--spacing-md); /* Increased padding for mobile */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Ensure content fills section */
 }
 
 .hero-content h1 {
@@ -41,11 +50,38 @@
 }
 
 @media (min-width: 768px) {
+  .hero-section {
+    height: 60vh; /* Revert to original height on larger screens */
+  }
+
+  .hero-content {
+    padding: var(--spacing-md); /* Reset padding for larger screens */
+  }
+
   .hero-content h1 {
     font-size: calc(var(--font-size-lg) * 2);
   }
 
   .hero-content p {
     font-size: calc(var(--font-size-base) * 1.2);
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-content h1 {
+    font-size: calc(
+      var(--font-size-lg) * 1.2
+    ); /* Smaller font size for mobile */
+  }
+
+  .hero-content p {
+    font-size: calc(var(--font-size-base) * 0.9);
+  }
+
+  .cta-button {
+    padding: calc(var(--spacing-sm) * 0.8) calc(var(--spacing-lg) * 0.8); /* Smaller button on mobile */
+  }
+  .hero-content {
+    justify-content: start;
   }
 }
