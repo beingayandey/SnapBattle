@@ -50,12 +50,12 @@
   position: relative;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .notification-icon {
   font-size: 1.25rem;
   color: var(--text-secondary);
-  cursor: pointer;
 }
 
 .notification-count {

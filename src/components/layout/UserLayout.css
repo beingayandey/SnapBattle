@@ -1,26 +1,25 @@
 .user-layout {
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
   background: var(--bg-main);
   color: var(--text-main);
 }
 
 .layout-content {
-  display: flex;
-  flex: 1;
-  margin-top: var(--header-height);
+  width: 100%;
+
+  padding-left: 100px;
 }
 
-.main-content {
-  flex: 1;
-  padding: 1.5rem;
-  background: var(--bg-main);
+.mains-content {
   min-height: calc(100vh - var(--header-height));
+  padding-bottom: calc(var(--header-height) + 1rem);
 }
-
 @media (max-width: 768px) {
   .main-content {
     padding: 1rem;
+  }
+
+  .layout-content {
+    padding-left: 0;
   }
 }

@@ -3,6 +3,12 @@
   color: var(--text-secondary);
   padding: 1rem 0;
   border-top: 1px solid var(--border);
+  position: fixed;
+  /* z-index: 99; */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
 }
 
 .footer-content {

@@ -19,6 +19,15 @@ import ProtectedRoute from "../ProtectedRoute";
 import AdminVotingPage from "../pages/admin/AdminVotingPage";
 import AdminStatsPage from "../pages/admin/AdminStatsPage";
 import AdminUsersPage from "../pages/admin/AdminUsersPage";
+import UserEventDetails from "../pages/user/UserEventDetails";
+import ForgotPassword from "../pages/auth/ForgotPassword";
+import ResetPassword from "../pages/auth/ResetPassword";
+import MySubmissions from "../pages/user/MySubmissions";
+import UploadPhoto from "../pages/user/UploadPhoto";
+import VotePage from "../pages/user/VotePage";
+import EventDetailPage from "../components/user/UserVote/EventDetailPage";
+import MyVotes from "../pages/user/MyVotes";
+import NotificationsPage from "../pages/user/NotificationsPage";
 
 const AppRoutes = () => {
   return (
@@ -26,6 +35,8 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
         {/* Admin Routes */}
         <Route element={<ProtectedRoute allowedRole="admin" />}>
@@ -57,6 +68,13 @@ const AppRoutes = () => {
         <Route element={<ProtectedRoute allowedRole="user" />}>
           <Route path="/user" element={<UserLayout />}>
             <Route path="dashboard" element={<UserDashboard />} />
+            <Route path="event/:eventId" element={<UserEventDetails />} />
+            <Route path="submissions" element={<MySubmissions />} />
+            <Route path="upload" element={<UploadPhoto />} />
+            <Route path="vote" element={<VotePage />} />
+            <Route path="vote/:eventId" element={<EventDetailPage />} />
+            <Route path="my-votes" element={<MyVotes />} />
+            <Route path="notifications" element={<NotificationsPage />} />
           </Route>
         </Route>
 

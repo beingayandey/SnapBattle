@@ -1,19 +1,12 @@
 .admin-events-page {
   padding: 2rem;
   background: var(--bg-main);
-  min-height: calc(100vh - var(--header-height));
-  color: var(--text-main);
+  min-height: calc(100vh - 64px);
 }
 
 .admin-events-page h1 {
   font-size: 1.5rem;
   font-weight: 600;
+  color: var(--sidebar-bg);
   margin-bottom: 1.5rem;
-}
-
-.loading,
-.error {
-  text-align: center;
-  padding: 2rem;
-  color: var(--text-muted);
 }

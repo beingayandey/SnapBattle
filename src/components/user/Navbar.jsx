@@ -1,11 +1,21 @@
 import { useState } from "react";
+import NotificationModal from "./NotificationModal";
 import "./Navbar.css";
 
 function Navbar({ toggleSidebar }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -18,7 +28,7 @@ function Navbar({ toggleSidebar }) {
           <div className="navbar-logo">UserPanel</div>
         </div>
         <div className="navbar-right">
-          <div className="notification">
+          <div className="notification" onClick={openModal}>
             <span className="notification-icon">🔔</span>
             <span className="notification-count">3</span>
           </div>
@@ -36,6 +46,7 @@ function Navbar({ toggleSidebar }) {
           </div>
         </div>
       </div>
+      <NotificationModal isOpen={isModalOpen} onClose={closeModal} />
     </header>
   );
 }

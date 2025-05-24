@@ -1,0 +1,39 @@
+.submission-gallery {
+  display: flex;
+  width: 100%;
+  padding: 1rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.submission-gallery-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem; /* Space between cards in a column */
+  /* Space between columns */
+  box-sizing: border-box;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 768px) {
+  .submission-gallery {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(80px, 1fr)
+    ); /* Smaller base width for mobile */
+  }
+}
+
+@media (max-width: 320px) {
+  .submission-gallery {
+    grid-template-columns: 1fr; /* Single column for very small screens */
+  }
+}

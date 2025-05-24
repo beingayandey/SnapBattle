@@ -1,0 +1,22 @@
+.event-selector {
+  padding: var(--spacing-sm);
+  font-size: var(--font-size-base);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-card);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.event-selector:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .event-selector {
+    width: 100%;
+  }
+}

@@ -28,7 +28,6 @@ const Login = () => {
     const searchParams = new URLSearchParams(location.search);
     const email = searchParams.get("email");
     if (email && email !== "undefined") {
-      // Add check for "undefined" string
       setBody((prev) => ({ ...prev, loginId: decodeURIComponent(email) }));
     }
   }, [location]);
@@ -125,6 +124,7 @@ const Login = () => {
                 onChange={(e) => setBody({ ...body, password: e.target.value })}
                 className="input-field"
                 placeholder="Password"
+                required
               />
               <button
                 type="button"
@@ -135,6 +135,11 @@ const Login = () => {
               </button>
             </div>
           </div>
+
+          <Link to="/forgot-password" className="forgot-password-link">
+            Forgot Password?
+          </Link>
+
           <button type="submit" className="submit-button" disabled={loading}>
             {loading ? <span className="loader"></span> : "Log In"}
           </button>

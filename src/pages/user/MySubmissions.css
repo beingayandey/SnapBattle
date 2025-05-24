@@ -1,0 +1,100 @@
+.my-submissions {
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background: var(--bg-main);
+  min-height: calc(100vh - var(--header-height));
+}
+
+.my-submissions__title {
+  font-size: 1.875rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 2rem;
+}
+
+.my-submissions__empty {
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 2rem;
+}
+
+.my-submissions__groups {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* Custom grid placement to mimic Image 1 layout */
+.my-submissions__groups > :nth-child(1) {
+  grid-column: 1 / -1; /* Event 1 spans full width */
+}
+
+.my-submissions__groups > :nth-child(2) {
+  grid-column: 1 / 2; /* Event 2 takes 1 column */
+}
+
+.my-submissions__groups > :nth-child(3) {
+  grid-column: 2 / 3; /* Event 3 takes 1 column */
+}
+
+.my-submissions__groups > :nth-child(4) {
+  grid-column: 3 / 4; /* Event 4 takes 1 column */
+}
+
+.my-submissions__groups > :nth-child(5) {
+  grid-column: 1 / 2; /* Event 5 takes 1 column */
+}
+
+.my-submissions__groups > :nth-child(6) {
+  grid-column: 2 / 4; /* Event 6 spans 2 columns */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .my-submissions__groups {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .my-submissions__groups > :nth-child(1) {
+    grid-column: 1 / -1; /* Event 1 still spans full width */
+  }
+
+  .my-submissions__groups > :nth-child(2) {
+    grid-column: 1 / 2; /* Event 2 takes 1 column */
+  }
+
+  .my-submissions__groups > :nth-child(3) {
+    grid-column: 2 / 3; /* Event 3 takes 1 column */
+  }
+
+  .my-submissions__groups > :nth-child(4) {
+    grid-column: 1 / 2; /* Event 4 takes 1 column */
+  }
+
+  .my-submissions__groups > :nth-child(5) {
+    grid-column: 2 / 3; /* Event 5 takes 1 column */
+  }
+
+  .my-submissions__groups > :nth-child(6) {
+    grid-column: 1 / -1; /* Event 6 spans full width */
+  }
+}
+
+@media (max-width: 768px) {
+  .my-submissions__groups {
+    grid-template-columns: 1fr;
+  }
+
+  .my-submissions__groups > :nth-child(n) {
+    grid-column: 1 / -1; /* All events span full width on mobile */
+  }
+
+  .my-submissions__title {
+    font-size: 1.5rem;
+  }
+
+  .my-submissions {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,62 @@
+.voted-submission-card {
+  background: var(--bg-card);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  transition: transform 0.2s ease;
+}
+
+.voted-submission-card:hover {
+  transform: translateY(-4px);
+}
+
+.thumbnail {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+.card-content {
+  padding: var(--spacing-sm);
+}
+
+.submission-title {
+  font-size: var(--font-size-base);
+  color: var(--text-main);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 500;
+}
+
+.vote-count,
+.vote-date {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.vote-date {
+  color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+  .thumbnail {
+    height: 120px;
+  }
+
+  .submission-title {
+    font-size: 14px;
+  }
+
+  .vote-count,
+  .vote-date {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .thumbnail {
+    height: 100px;
+  }
+}

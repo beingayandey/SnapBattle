@@ -5,15 +5,23 @@ import StatusBadge from "./StatusBadge";
 import EventActions from "./EventActions";
 import "./EventRow.css";
 
-const EventRow = ({ event }) => {
+const EventRow = ({ event, isPublic, isSelected, onSelect }) => {
   const navigate = useNavigate();
 
   return (
-    <tr className="event-row">
+    <tr
+      className={`event-row ${isPublic ? "public-row" : "private-row"} ${
+        isSelected ? "selected-row" : ""
+      }`}
+    >
+      <td className="checkbox-column">
+        <input type="checkbox" checked={isSelected} onChange={onSelect} />
+      </td>
       <td>{event.name}</td>
       <td>{format(new Date(event.startDate), "MMM dd, yyyy")}</td>
       <td>{format(new Date(event.endDate), "MMM dd, yyyy")}</td>
       <td>{event.submissionCount}</td>
+      <td>{event.visibility}</td>
       <td>
         <StatusBadge status={event.status} />
       </td>

@@ -54,7 +54,6 @@ const CreateEventPage = () => {
         throw new Error("Missing token or user ID. Please log in.");
       }
 
-      // Use formData from top-level useSelector
       console.log("formData:", formData);
 
       const formDataToSend = new FormData();
@@ -64,7 +63,7 @@ const CreateEventPage = () => {
       formDataToSend.append("category", formData.category || "");
       formDataToSend.append("rules", formData.rules || "");
       if (image) {
-        formDataToSend.append("image", image);
+        formDataToSend.append("banner", image); // Changed from "image" to "banner"
       }
       formDataToSend.append(
         "start_date",

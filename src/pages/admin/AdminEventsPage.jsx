@@ -1,52 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EventTable from "../../components/admin/AdminEvents/EventTable";
 import "./AdminEventsPage.css";
-
-// Static demo data
-const demoEvents = [
-  {
-    id: 1,
-    name: "Summer Photo Contest",
-    startDate: "2025-06-01T00:00:00Z",
-    endDate: "2025-06-30T23:59:59Z",
-    submissionCount: 42,
-    status: "Active",
-  },
-  {
-    id: 2,
-    name: "Winter Snapshots",
-    startDate: "2025-01-01T00:00:00Z",
-    endDate: "2025-01-31T23:59:59Z",
-    submissionCount: 19,
-    status: "Ended",
-  },
-  {
-    id: 3,
-    name: "Spring Moments",
-    startDate: "2025-03-01T00:00:00Z",
-    endDate: "2025-03-31T23:59:59Z",
-    submissionCount: 25,
-    status: "Voting",
-  },
-  {
-    id: 4,
-    name: "Autumn Colors",
-    startDate: "2025-09-01T00:00:00Z",
-    endDate: "2025-09-30T23:59:59Z",
-    submissionCount: 30,
-    status: "Active",
-  },
-];
+import { getEventList } from "../../api/api";
 
 const AdminEventsPage = () => {
-  const [events] = useState(demoEvents);
+  const [events, setEvents] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortConfig, setSortConfig] = useState({
-    key: "name",
+    key: "title",
     direction: "asc",
   });
   const [filterStatus, setFilterStatus] = useState("All");
-  const eventsPerPage = 10;
+  const [limit, setLimit] = useState(10);
+  const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const token = localStorage.getItem("token");
+
+  const fetchEvents = async (
+    page = 1,
+    status = filterStatus,
+    limitPerPage = limit
+  ) => {
+    setIsLoading(true);
+    try {
+      const response = await getEventList({
+        token,
+        page,
+        status: status === "All" ? undefined : status,
+        limit: limitPerPage,
+      });
+      const mappedEvents = response.data.docs.map((event) => ({
+        id: event._id,
+        name: event.title,
+        startDate: event.start_date,
+        endDate: event.end_date,
+        submissionCount: 0, // Placeholder as API doesn't provide this
+        status:
+          event.status.charAt(0).toUpperCase() +
+          event.status.slice(1).toLowerCase(),
+        visibility: event.visibility ? "Public" : "Private",
+      }));
+      setEvents(mappedEvents);
+      setTotalPages(response.data.totalPages);
+      setCurrentPage(response.data.page);
+    } catch (error) {
+      console.error("Error fetching events:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
 
   const handleSort = (key) => {
     setSortConfig((prev) => ({
@@ -57,7 +63,30 @@ const AdminEventsPage = () => {
 
   const handleFilter = (status) => {
     setFilterStatus(status);
-    setCurrentPage(1); // Reset to first page on filter change
+    setCurrentPage(1);
+    fetchEvents(1, status, limit);
+  };
+
+  const handleLimitChange = (newLimit) => {
+    setLimit(newLimit);
+    setCurrentPage(1);
+    fetchEvents(1, filterStatus, newLimit);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    fetchEvents(page, filterStatus, limit);
+  };
+
+  const handleDeleteEvents = (eventIds) => {
+    // Placeholder for API call to delete events
+    // For now, filter out deleted events from state
+    setEvents((prevEvents) =>
+      prevEvents.filter((event) => !eventIds.includes(event.id))
+    );
+    // In a real implementation, you would make an API call here
+    // await deleteEvents({ token, eventIds });
+    // Then refetch or update state accordingly
   };
 
   const sortedEvents = [...events].sort((a, b) => {
@@ -94,6 +123,9 @@ const AdminEventsPage = () => {
     if (sortConfig.key === "submissionCount") {
       return safeCompare(a.submissionCount, b.submissionCount, "number");
     }
+    if (sortConfig.key === "visibility") {
+      return safeCompare(a.visibility, b.visibility, "string");
+    }
     return 0;
   });
 
@@ -102,21 +134,16 @@ const AdminEventsPage = () => {
       ? sortedEvents
       : sortedEvents.filter((event) => event.status === filterStatus);
 
-  const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
-  const paginatedEvents = filteredEvents.slice(
-    (currentPage - 1) * eventsPerPage,
-    currentPage * eventsPerPage
-  );
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
   return (
     <div className="admin-events-page">
-      <h1>Events</h1>
+      <h1 className="text-2xl font-semibold text-gray-900">Events</h1>
+      {isLoading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
       <EventTable
-        events={paginatedEvents}
+        events={filteredEvents}
         sortConfig={sortConfig}
         onSort={handleSort}
         filterStatus={filterStatus}
@@ -124,6 +151,9 @@ const AdminEventsPage = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
+        limit={limit}
+        onLimitChange={handleLimitChange}
+        onDeleteEvents={handleDeleteEvents}
       />
     </div>
   );

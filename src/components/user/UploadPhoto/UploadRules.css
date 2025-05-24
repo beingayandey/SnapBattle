@@ -1,0 +1,34 @@
+.upload-rules {
+  background: var(--bg-card);
+  padding: var(--spacing-md);
+  border-radius: 4px;
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--shadow);
+}
+
+.upload-rules h2 {
+  font-size: var(--font-size-base);
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-main);
+}
+
+.upload-rules ul {
+  list-style: none;
+  padding: 0;
+}
+
+.upload-rules li {
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-secondary);
+}
+
+@media (max-width: 600px) {
+  .upload-rules {
+    padding: var(--spacing-sm);
+  }
+
+  .upload-rules h2 {
+    font-size: var(--font-size-sm);
+  }
+}

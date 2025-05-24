@@ -1,0 +1,35 @@
+.vote-page {
+  min-height: 100vh;
+  background: var(--bg-main);
+  color: var(--text-main);
+  padding: var(--spacing-lg);
+
+  margin: 0 auto;
+}
+
+.vote-page-header {
+  background: var(--header-bg);
+  box-shadow: var(--header-shadow);
+  padding: var(--spacing-md);
+  border-radius: 8px;
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+.vote-page-title {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .vote-page {
+    padding: var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .vote-page-title {
+    font-size: 20px;
+  }
+}

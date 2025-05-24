@@ -100,30 +100,36 @@ const EventImageUploader = ({ image, onImageChange }) => {
             });
 
             const options = {
-              maxSizeMB: 0.5,
-              maxWidthOrHeight: 1024,
+              maxSizeMB: 0.2, // Target 200KB
+              maxWidthOrHeight: 800, // Reduced resolution to help meet size limit
               useWebWorker: true,
+              initialQuality: 0.9, // Start with high quality
             };
 
             try {
               const compressedFile = await imageCompression(file, options);
-              if (compressedFile.size <= 512000) {
+              if (compressedFile.size <= 200 * 1024) {
                 onImageChange(compressedFile);
               } else {
-                alert("Image is still too large after compression.");
+                alert(
+                  "Image is still too large after compression. Please try a smaller or less detailed image."
+                );
+                reject(new Error("Compressed image exceeds 200KB"));
               }
               resolve();
             } catch (err) {
               console.error("Compression error:", err);
+              alert("Failed to compress image. Please try again.");
               reject(err);
             }
           },
           "image/jpeg",
-          1
+          0.9 // Initial canvas quality
         );
       });
     } catch (err) {
       console.error("Error in getCroppedImage:", err);
+      alert("Error processing image. Please try again.");
     }
   }, [imageSrc, croppedAreaPixels, onImageChange]);
 
@@ -163,7 +169,7 @@ const EventImageUploader = ({ image, onImageChange }) => {
             image={imageSrc}
             crop={crop}
             zoom={zoom}
-            aspect={4 / 3}
+            aspect={4 / 3} // Maintain rectangular aspect ratio
             restrictPosition={false}
             onCropChange={setCrop}
             onZoomChange={setZoom}
@@ -234,7 +240,7 @@ const EventImageUploader = ({ image, onImageChange }) => {
                 />
               </svg>
               <p>Drag & drop or click to upload cover image</p>
-              <p className="supported-formats">JPG, PNG, JPEG</p>
+              <p className="supported-formats">JPG, PNG, JPEG (Max 200KB)</p>
               <input
                 type="file"
                 accept="image/jpeg,image/png"

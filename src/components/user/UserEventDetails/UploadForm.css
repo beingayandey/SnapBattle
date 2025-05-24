@@ -1,0 +1,117 @@
+.upload-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.upload-form-drop-zone {
+  border: 2px dashed var(--border);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  background: var(--bg-secondary);
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.upload-form-drop-zone:hover {
+  background: var(--bg-main);
+  border-color: var(--primary);
+  transform: scale(1.02);
+}
+
+.upload-form-drop-text {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.upload-form-file-input {
+  display: none;
+}
+
+.upload-form-error {
+  color: var(--danger);
+  font-size: 0.875rem;
+  animation: shake 0.3s ease;
+}
+
+.upload-form-file-list {
+  list-style: none;
+  padding: 0;
+}
+
+.upload-form-file-item {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  animation: slideIn 0.5s ease-out;
+}
+
+.upload-form-submit-button {
+  background: var(--primary-gradient);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: filter 0.2s, transform 0.2s;
+}
+
+.upload-form-submit-button:hover {
+  filter: var(--button-hover);
+  transform: translateY(-2px);
+}
+
+.upload-form-submit-button:disabled {
+  background: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25%,
+  75% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .upload-form-drop-zone {
+    padding: 1.5rem;
+  }
+
+  .upload-form-drop-text {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .upload-form-drop-zone {
+    padding: 1rem;
+  }
+
+  .upload-form-submit-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+}

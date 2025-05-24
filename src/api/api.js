@@ -37,3 +37,20 @@ export const getCategoryList = async (token) => {
   });
   return response.data;
 };
+
+export const getEventList = async ({ token, page = 1, status, limit = 10 }) => {
+  const queryParams = new URLSearchParams({ page, limit });
+  if (status) {
+    queryParams.append("status", status);
+  }
+
+  const response = await axios.get(
+    `${baseUrl}/api/event/list?${queryParams.toString()}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+};

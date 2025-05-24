@@ -1,13 +1,21 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./EventCard.css";
 
 function EventCard({ event }) {
+  const navigate = useNavigate();
+
+  const handleJoinContest = () => {
+    navigate(`/user/event/${event.id}`);
+  };
   return (
     <div className="event-card">
       <div className="event-image-container">
         <img src={event.image} alt={event.title} className="event-image" />
         <div className="event-overlay">
-          <button className="event-button">Join Contest</button>
+          <button className="event-button" onClick={handleJoinContest}>
+            Join Contest
+          </button>
         </div>
       </div>
       <div className="event-details">

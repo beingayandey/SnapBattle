@@ -16,7 +16,16 @@
   max-width: 360px;
   animation: fadeIn 0.5s ease-out;
 }
-
+.forgot-password-text {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.forgot-password-link {
+  font-size: 12px;
+  text-align: right;
+  margin: -5px 0 -15px 0;
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -220,7 +229,7 @@ body:has(.full-page-loader) {
   }
 }
 /* Responsive Design */
-@media (max-width: 360px) {
+@media (max-width: 380px) {
   .login-card {
     padding: 1rem;
     max-width: 100%;

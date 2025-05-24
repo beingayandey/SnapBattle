@@ -1,0 +1,36 @@
+.my-votes-container {
+  margin: 0 auto;
+  padding: var(--spacing-md);
+  background: var(--bg-main);
+  min-height: 100vh;
+}
+
+.my-votes-title {
+  font-size: var(--font-size-lg);
+  color: var(--text-main);
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+.no-votes {
+  color: var(--text-muted);
+  text-align: center;
+  font-size: var(--font-size-base);
+  margin-top: var(--spacing-lg);
+}
+
+@media (max-width: 768px) {
+  .my-votes-container {
+    padding: var(--spacing-sm);
+  }
+
+  .my-votes-title {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .my-votes-title {
+    font-size: 18px;
+  }
+}

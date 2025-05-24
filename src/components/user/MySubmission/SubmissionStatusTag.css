@@ -1,0 +1,23 @@
+.submission-status-tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 12px;
+  text-transform: capitalize;
+}
+
+.submission-status-tag--pending {
+  background: var(--warning);
+  color: var(--text-main);
+}
+
+.submission-status-tag--approved {
+  background: var(--success);
+  color: #fff;
+}
+
+.submission-status-tag--rejected {
+  background: var(--danger);
+  color: #fff;
+}

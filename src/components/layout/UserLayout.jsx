@@ -15,10 +15,10 @@ function UserLayout() {
   return (
     <div className="user-layout">
       <Navbar toggleSidebar={toggleSidebar} />
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <div className="container">
         <div className="layout-content">
-          <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-          <main className="main-content">
+          <main className="mains-content">
             <Outlet />
           </main>
         </div>

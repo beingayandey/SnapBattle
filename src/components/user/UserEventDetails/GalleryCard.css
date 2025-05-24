@@ -1,0 +1,48 @@
+.gallery-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%; /* Fixed width to match your 100px suggestion */
+}
+
+.gallery-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-card:hover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--photo-hover);
+  opacity: 0.3;
+}
+
+.gallery-card-image {
+  width: 100%;
+  height: auto; /* Allow natural height for masonry effect */
+  min-height: 100px; /* Minimum height to approximate your 100px suggestion */
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.gallery-card:hover .gallery-card-image {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .gallery-card {
+    width: 80px; /* Smaller width for mobile */
+  }
+  .gallery-card-image {
+    min-height: 80px; /* Smaller minimum height for mobile */
+  }
+}

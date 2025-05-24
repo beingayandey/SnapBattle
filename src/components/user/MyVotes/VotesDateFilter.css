@@ -1,0 +1,128 @@
+.votes-date-filter {
+  background: var(--bg-card);
+  border-radius: 8px;
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  margin-bottom: var(--spacing-lg);
+  max-width: 575px;
+  margin-left: auto;
+  display: flex;
+  gap: 20px;
+  align-items: end;
+}
+
+.date-inputs {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: 0;
+}
+
+.date-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.date-field label {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.date-field input {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: var(--font-size-sm);
+  color: var(--text-main);
+  background: var(--bg-secondary);
+}
+
+.date-field input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.filter-buttons {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: flex-end;
+}
+
+.apply-btn,
+.clear-btn {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: 4px;
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.apply-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+}
+
+.apply-btn:hover {
+  background: var(--nav-hover);
+}
+
+.apply-btn:disabled {
+  background: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.clear-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-main);
+}
+
+.clear-btn:hover {
+  background: var(--bg-secondary);
+}
+
+@media (max-width: 768px) {
+  .date-inputs {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .filter-buttons {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .apply-btn,
+  .clear-btn {
+    width: 100%;
+  }
+  .votes-date-filter {
+    flex-wrap: wrap;
+  }
+  .date-inputs,
+  .filter-buttons {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .votes-date-filter {
+    padding: var(--spacing-sm);
+  }
+
+  .date-field label {
+    font-size: 12px;
+  }
+
+  .date-field input {
+    font-size: 12px;
+  }
+
+  .apply-btn,
+  .clear-btn {
+    font-size: 12px;
+  }
+}

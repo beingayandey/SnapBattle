@@ -1,0 +1,29 @@
+.event-submission-group {
+  background: var(--bg-card); /* Changed to white background to match Image 1 */
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.event-submission-group__title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+}
+
+.event-submission-group__grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Single card per event */
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .event-submission-group__title {
+    font-size: 1.125rem;
+  }
+
+  .event-submission-group {
+    padding: 1rem;
+  }
+}

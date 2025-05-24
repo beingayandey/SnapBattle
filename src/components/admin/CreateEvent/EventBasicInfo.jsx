@@ -26,7 +26,7 @@ const EventBasicInfo = ({ title, subtitle, category, onChange }) => {
       const response = await getCategoryList(token);
       console.log(response.data);
       // Ensure response.data.categories is an array and map to names
-      setCategories(response.data.categories?.map((cat) => cat.name) || []);
+      setCategories(response.data.docs?.map((cat) => cat.name) || []);
     } catch (error) {
       console.error("Error fetching categories:", error);
       setCategories([]); // Fallback to empty array on error

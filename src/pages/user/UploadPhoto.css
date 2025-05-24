@@ -1,0 +1,25 @@
+.upload-photo-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+  background: var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+.upload-photo-container h1 {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+  color: var(--text-main);
+}
+
+@media (max-width: 600px) {
+  .upload-photo-container {
+    padding: var(--spacing-md);
+  }
+
+  .upload-photo-container h1 {
+    font-size: 20px;
+  }
+}
