@@ -46,9 +46,9 @@ const CreateEventPage = () => {
     setError(null);
 
     try {
-      const token = localStorage.getItem("token");
-      const userId = localStorage.getItem("userId");
-      console.log("localStorage:", { token, userId });
+      const token = sessionStorage.getItem("token");
+      const userId = sessionStorage.getItem("userId");
+      console.log("sessionStorage:", { token, userId });
 
       if (!token || !userId) {
         throw new Error("Missing token or user ID. Please log in.");

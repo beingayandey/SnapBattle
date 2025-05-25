@@ -19,6 +19,13 @@ function Navbar({ toggleSidebar }) {
     setIsModalOpen(false);
   };
 
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("role");
+    sessionStorage.removeItem("justLoggedIn");
+    sessionStorage.removeItem("userId");
+  };
+
   return (
     <header className="navbar">
       <div className="navbar-content">
@@ -41,7 +48,7 @@ function Navbar({ toggleSidebar }) {
               <div className="user-dropdown">
                 <Link to="/user/profile">Profile</Link>
                 <Link to="/user/settings">Settings</Link>
-                <Link to="/logout">Logout</Link>
+                <Link onClick={handleLogout}>Logout</Link>
               </div>
             )}
           </div>

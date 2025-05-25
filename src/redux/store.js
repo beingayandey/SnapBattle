@@ -11,7 +11,7 @@ export const store = configureStore({
   },
 });
 // Initialize theme on app load
-const savedTheme = localStorage.getItem("theme");
+const savedTheme = sessionStorage.getItem("theme");
 if (savedTheme) {
   document.documentElement.setAttribute("data-theme", savedTheme);
 }

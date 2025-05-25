@@ -18,7 +18,9 @@
   margin-bottom: 1.5rem;
   color: var(--text-main);
 }
-
+.dashboard-container .event-card {
+  width: 100%;
+}
 .events-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

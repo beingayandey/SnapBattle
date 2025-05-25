@@ -66,11 +66,11 @@ const ResetPassword = () => {
         throw new Error("Invalid response data from reset password");
       }
 
-      // Set auth data in localStorage (mimicking Login component)
-      localStorage.setItem("token", bearerToken);
-      localStorage.setItem("userId", user._id);
-      localStorage.setItem("role", user.roles[0]);
-      localStorage.setItem("justLoggedIn", "true");
+      // Set auth data in sessionStorage (mimicking Login component)
+      sessionStorage.setItem("token", bearerToken);
+      sessionStorage.setItem("userId", user._id);
+      sessionStorage.setItem("role", user.roles[0]);
+      sessionStorage.setItem("justLoggedIn", "true");
 
       // Clear form
       setFormData({ password: "", confirmPassword: "" });

@@ -19,8 +19,8 @@ const useAxios = () => {
       // Add the authorization token if it exists in local storage
       config.headers["Accept"] = "application/json";
       config.headers["Authorization"] =
-        localStorage.getItem("token") &&
-        `Bearer ${localStorage.getItem("token")}`;
+        sessionStorage.getItem("token") &&
+        `Bearer ${sessionStorage.getItem("token")}`;
       return config;
     },
     (error) => {

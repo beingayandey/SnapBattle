@@ -20,8 +20,8 @@ const Login = () => {
   const location = useLocation();
 
   // Redirect if already logged in
-  const token = localStorage.getItem("token");
-  const role = localStorage.getItem("role");
+  const token = sessionStorage.getItem("token");
+  const role = sessionStorage.getItem("role");
 
   // Prefill email from query parameter on mount
   useEffect(() => {
@@ -39,10 +39,10 @@ const Login = () => {
       setLoading(true);
       setError(null);
       const response = await loginUser(body.loginId, body.password);
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("role", response.data.user.roles[0]);
-      localStorage.setItem("userId", response.data.user._id);
-      localStorage.setItem("justLoggedIn", "true");
+      sessionStorage.setItem("token", response.data.token);
+      sessionStorage.setItem("role", response.data.user.roles[0]);
+      sessionStorage.setItem("userId", response.data.user._id);
+      sessionStorage.setItem("justLoggedIn", "true");
       setBody({ loginId: "", password: "" });
       showSuccess("Login successful!");
       await new Promise((resolve) => setTimeout(resolve, 2000));

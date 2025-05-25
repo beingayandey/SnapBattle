@@ -16,13 +16,13 @@ const EventBasicInfo = ({ title, subtitle, category, onChange }) => {
       // Update the form's category to the newly added one
       onChange({ target: { name: "category", value: newCategory.trim() } });
       // Optionally save to backend or local storage
-      // Example: localStorage.setItem('eventCategories', JSON.stringify(updatedCategories));
+      // Example: sessionStorage.setItem('eventCategories', JSON.stringify(updatedCategories));
     }
   };
 
   const categoryData = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
       const response = await getCategoryList(token);
       console.log(response.data);
       // Ensure response.data.categories is an array and map to names

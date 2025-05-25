@@ -10,19 +10,19 @@ export default function AdminLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLoggedOut, setIsLoggedOut] = useState(false);
   const [showOverlay, setShowOverlay] = useState(
-    localStorage.getItem("justLoggedIn") === "true"
+    sessionStorage.getItem("justLoggedIn") === "true"
   );
   const [timer, setTimer] = useState(7); // Start at 7 seconds
 
   useEffect(() => {
-    if (localStorage.getItem("justLoggedIn") === "true") {
+    if (sessionStorage.getItem("justLoggedIn") === "true") {
       setTimer(7); // Initialize timer
       const interval = setInterval(() => {
         setTimer((prev) => {
           if (prev <= 1) {
             clearInterval(interval);
             setShowOverlay(false);
-            localStorage.removeItem("justLoggedIn"); // Clear login flag
+            sessionStorage.removeItem("justLoggedIn"); // Clear login flag
             return 0;
           }
           return prev - 1;
@@ -41,10 +41,10 @@ export default function AdminLayout() {
 
   const handleLogout = () => {
     console.log("Logging out from AdminLayout...");
-    localStorage.removeItem("token");
-    localStorage.removeItem("role");
-    localStorage.removeItem("justLoggedIn");
-    localStorage.removeItem("userId");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("role");
+    sessionStorage.removeItem("justLoggedIn");
+    sessionStorage.removeItem("userId");
     setIsLoggedOut(true);
   };
 
