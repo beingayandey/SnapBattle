@@ -46,27 +46,27 @@ const AppRoutes = () => (
       <Route path="/forgot-password" element={<ForgotPassword />} />
 
       {/* Admin Routes */}
-      {/* <Route element={<ProtectedRoute allowedRole="admin" />}> */}
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route index element={<AdminDashboard />} />
-        <Route path="dashboard" element={<AdminDashboard />} />
-        <Route path="events/:eventId/manage" element={<EventManagePage />} />
-        <Route path="create-event" element={<CreateEventPage />} />
-        <Route path="roles" element={<ManageRolesPage />} />
-        <Route path="settings" element={<AdminSettingsPage />} />
-        <Route path="reports" element={<AdminReportsPage />} />
-        <Route path="events" element={<AdminEventsPage />} />
-        <Route
-          path="events/:eventId/submissions"
-          element={<AdminEventSubmissionsPage />}
-        />
-        <Route path="events/:id/edit" element={<EditEventPage />} />
-        <Route path="submission" element={<SubmissionsPage />} />
-        <Route path="voting" element={<AdminVotingPage />} />
-        <Route path="stats" element={<AdminStatsPage />} />
-        <Route path="users" element={<AdminUsersPage />} />
+      <Route element={<ProtectedRoute allowedRole="admin" />}>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="events/:eventId/manage" element={<EventManagePage />} />
+          <Route path="create-event" element={<CreateEventPage />} />
+          <Route path="roles" element={<ManageRolesPage />} />
+          <Route path="settings" element={<AdminSettingsPage />} />
+          <Route path="reports" element={<AdminReportsPage />} />
+          <Route path="events" element={<AdminEventsPage />} />
+          <Route
+            path="events/:eventId/submissions"
+            element={<AdminEventSubmissionsPage />}
+          />
+          <Route path="events/:id/edit" element={<EditEventPage />} />
+          <Route path="submission" element={<SubmissionsPage />} />
+          <Route path="voting" element={<AdminVotingPage />} />
+          <Route path="stats" element={<AdminStatsPage />} />
+          <Route path="users" element={<AdminUsersPage />} />
+        </Route>
       </Route>
-      {/* </Route> */}
 
       {/* User Routes */}
       {/* <Route element={<ProtectedRoute allowedRole="user" />}> */}
