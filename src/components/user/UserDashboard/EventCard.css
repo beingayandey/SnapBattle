@@ -42,7 +42,10 @@
 .event-card:hover .event-overlay {
   opacity: 1;
 }
-
+.events-section .event-image-container img {
+  width: 100%;
+  height: 100%;
+}
 .event-button {
   background: var(--primary);
   color: var(--bg-card);

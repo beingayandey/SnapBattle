@@ -5,19 +5,6 @@ import { useToast } from "../../components/toast/ToastNotification";
 import "./Login.css";
 import { resetPassword } from "../../api/api";
 
-// Hypothetical function to set auth token (replace with your auth logic)
-const setAuthToken = (token) => {
-  localStorage.setItem("token", token); // Example: Store in localStorage
-  // Alternatively, update an auth context or Redux store
-};
-
-// Hypothetical API to validate token and log in (replace with your actual API)
-const loginWithToken = async (token, email) => {
-  // Example: Make an API call to verify token and get user data
-  // Replace with your actual login endpoint
-  return { success: true, user: { email } }; // Mock response
-};
-
 const ResetPassword = () => {
   const [formData, setFormData] = useState({
     password: "",
@@ -72,18 +59,18 @@ const ResetPassword = () => {
         { autoClose: false }
       );
 
-      // Set the bearer token (replace with your auth logic)
+      // Extract token and user data
       const bearerToken = response.data?.token;
-      if (!bearerToken) {
-        throw new Error("No token received from reset password");
+      const user = response.data?.user;
+      if (!bearerToken || !user || !user._id || !user.roles || !user.roles[0]) {
+        throw new Error("Invalid response data from reset password");
       }
-      setAuthToken(bearerToken);
 
-      // Perform automatic login
-      const loginResponse = await loginWithToken(bearerToken, email);
-      if (!loginResponse.success) {
-        throw new Error("Automatic login failed");
-      }
+      // Set auth data in localStorage (mimicking Login component)
+      localStorage.setItem("token", bearerToken);
+      localStorage.setItem("userId", user._id);
+      localStorage.setItem("role", user.roles[0]);
+      localStorage.setItem("justLoggedIn", "true");
 
       // Clear form
       setFormData({ password: "", confirmPassword: "" });
@@ -91,12 +78,22 @@ const ResetPassword = () => {
       // Wait briefly to show the "Logging you in" toast
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      // Redirect to dashboard
-      navigate("/dashboard");
+      // Redirect based on role
+      if (user.roles.includes("admin")) {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/user/dashboard");
+      }
     } catch (err) {
       let errorMessage = "Failed to reset password or log in.";
       if (err.response?.data?.errors) {
-        errorMessage = err.response.data.errors;
+        if (typeof err.response.data.errors === "object") {
+          errorMessage = Object.values(err.response.data.errors)
+            .flat()
+            .join(", ");
+        } else {
+          errorMessage = err.response.data.errors;
+        }
       } else if (err.message) {
         errorMessage = err.message;
       }
