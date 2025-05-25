@@ -18,7 +18,7 @@ const ImageGallery = () => {
     const images = imagesRef.current;
 
     images.forEach((img, index) => {
-      // Flip animation with interval break
+      // Flip animation
       gsap.to(img, {
         rotationY: 360,
         duration: 2,
@@ -43,12 +43,11 @@ const ImageGallery = () => {
             start: "top 90%",
             end: "top 50%",
             scrub: 1,
-            containerAnimation: ScrollTrigger.getById("smooth-content"), // Sync with ScrollSmoother
           },
         }
       );
 
-      // Honeycomb effect: tilt top-left corner up and back down
+      // Honeycomb effect
       gsap.to(img, {
         rotationX: 20,
         duration: 1,

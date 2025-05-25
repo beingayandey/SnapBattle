@@ -22,7 +22,7 @@
 .gallery-item {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1; /* Ensure square images */
+  aspect-ratio: 1 / 1;
 }
 
 .gallery-image {
@@ -31,8 +31,8 @@
   object-fit: cover;
   border-radius: 4px;
   box-shadow: var(--shadow);
-  cursor: pointer; /* Indicate interactivity for magnet effect */
-  transform-origin: center center; /* Ensure smooth transformations */
+  cursor: pointer;
+  transform-origin: center center;
 }
 
 @media (max-width: 767px) {

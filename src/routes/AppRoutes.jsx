@@ -16,10 +16,12 @@ import EditEventPage from "../pages/admin/EditEventPage";
 import EventManagePage from "../pages/admin/EventManagePage";
 import ManageRolesPage from "../pages/admin/ManageRolesPage";
 import SubmissionsPage from "../pages/admin/SubmissionsPage";
+import EmailVerificationPending from "../pages/auth/EmailVerificationPending";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 import Login from "../pages/auth/Login";
 import ResetPassword from "../pages/auth/ResetPassword";
 import Signup from "../pages/auth/Signup";
+import HomePage from "../pages/HomePage";
 import MySubmissions from "../pages/user/MySubmissions";
 import MyVotes from "../pages/user/MyVotes";
 import NotificationsPage from "../pages/user/NotificationsPage";
@@ -31,7 +33,6 @@ import UserDashboard from "../pages/user/UserDashboard";
 import UserEventDetails from "../pages/user/UserEventDetails";
 import VotePage from "../pages/user/VotePage";
 import ProtectedRoute from "../ProtectedRoute";
-import HomePage from "../pages/HomePage";
 
 const AppRoutes = () => (
   <ToastProvider>
@@ -41,6 +42,7 @@ const AppRoutes = () => (
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/verify-email" element={<EmailVerificationPending />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
 
       {/* Admin Routes */}

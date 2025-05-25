@@ -8,19 +8,19 @@
   justify-content: center;
   position: relative;
   overflow: visible;
-  height: 100vh; /* Full viewport height */
-  min-height: auto; /* Override previous min-height */
+  height: 100vh;
+  min-height: auto;
 }
 
 .hero-content {
   max-width: 800px;
   margin: 0 auto;
-  padding: calc(var(--spacing-md) * 2) var(--spacing-md); /* Increased padding for mobile */
+  padding: calc(var(--spacing-md) * 2) var(--spacing-md);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%; /* Ensure content fills section */
+  height: 100%;
 }
 
 .hero-content h1 {
@@ -51,11 +51,11 @@
 
 @media (min-width: 768px) {
   .hero-section {
-    height: 60vh; /* Revert to original height on larger screens */
+    height: 60vh;
   }
 
   .hero-content {
-    padding: var(--spacing-md); /* Reset padding for larger screens */
+    padding: var(--spacing-md);
   }
 
   .hero-content h1 {
@@ -69,9 +69,7 @@
 
 @media (max-width: 767px) {
   .hero-content h1 {
-    font-size: calc(
-      var(--font-size-lg) * 1.2
-    ); /* Smaller font size for mobile */
+    font-size: calc(var(--font-size-lg) * 1.2);
   }
 
   .hero-content p {
@@ -79,9 +77,12 @@
   }
 
   .cta-button {
-    padding: calc(var(--spacing-sm) * 0.8) calc(var(--spacing-lg) * 0.8); /* Smaller button on mobile */
+    padding: calc(var(--spacing-sm) * 0.8) calc(var(--spacing-lg) * 0.8);
   }
   .hero-content {
     justify-content: start;
+  }
+  .hero-content {
+    height: auto;
   }
 }

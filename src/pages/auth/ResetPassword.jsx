@@ -2,24 +2,20 @@ import React, { useState } from "react";
 import { FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useToast } from "../../components/toast/ToastNotification";
-import "./Login.css"; // Reuse Login.css for consistent styling
+import "./Login.css";
+import { resetPassword } from "../../api/api";
 
-// Placeholder API function for password reset
-const resetPassword = async (token, password) => {
-  // Replace with your actual API call
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (password.length >= 8) {
-        resolve({ message: "Password reset successfully!" });
-      } else {
-        reject({
-          response: {
-            data: { errors: "Password must be at least 8 characters long" },
-          },
-        });
-      }
-    }, 1000);
-  });
+// Hypothetical function to set auth token (replace with your auth logic)
+const setAuthToken = (token) => {
+  localStorage.setItem("token", token); // Example: Store in localStorage
+  // Alternatively, update an auth context or Redux store
+};
+
+// Hypothetical API to validate token and log in (replace with your actual API)
+const loginWithToken = async (token, email) => {
+  // Example: Make an API call to verify token and get user data
+  // Replace with your actual login endpoint
+  return { success: true, user: { email } }; // Mock response
 };
 
 const ResetPassword = () => {
@@ -35,9 +31,10 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Extract token from query parameter
+  // Extract token and email from query parameters
   const searchParams = new URLSearchParams(location.search);
   const token = searchParams.get("token");
+  const email = searchParams.get("email");
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
   const toggleConfirmPasswordVisibility = () =>
@@ -50,23 +47,58 @@ const ResetPassword = () => {
       showError("Passwords do not match");
       return;
     }
-    if (!token) {
-      setError("Invalid or missing reset token");
-      showError("Invalid or missing reset token");
+    if (!token || !email) {
+      setError("Invalid or missing reset token or email");
+      showError("Invalid or missing reset token or email");
       return;
     }
     setLoading(true);
     setError(null);
     try {
-      const response = await resetPassword(token, formData.password);
-      showSuccess(response.message);
+      // Call resetPassword API
+      const response = await resetPassword(
+        token,
+        email,
+        formData.password,
+        formData.confirmPassword
+      );
+      showSuccess(response.message || "Password reset successfully");
+
+      // Show "Logging you in" toast with spinner
+      showSuccess(
+        <div>
+          Logging you in <span className="loader"></span>
+        </div>,
+        { autoClose: false }
+      );
+
+      // Set the bearer token (replace with your auth logic)
+      const bearerToken = response.data?.token;
+      if (!bearerToken) {
+        throw new Error("No token received from reset password");
+      }
+      setAuthToken(bearerToken);
+
+      // Perform automatic login
+      const loginResponse = await loginWithToken(bearerToken, email);
+      if (!loginResponse.success) {
+        throw new Error("Automatic login failed");
+      }
+
+      // Clear form
       setFormData({ password: "", confirmPassword: "" });
+
+      // Wait briefly to show the "Logging you in" toast
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      navigate("/login");
+
+      // Redirect to dashboard
+      navigate("/dashboard");
     } catch (err) {
-      let errorMessage = "Failed to reset password.";
+      let errorMessage = "Failed to reset password or log in.";
       if (err.response?.data?.errors) {
         errorMessage = err.response.data.errors;
+      } else if (err.message) {
+        errorMessage = err.message;
       }
       setError(errorMessage);
       showError(errorMessage);

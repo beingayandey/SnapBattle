@@ -54,9 +54,32 @@ export const getEventList = async ({ token, page = 1, status, limit = 10 }) => {
   );
   return response.data;
 };
+
 export const getUserCountry = async () => {
   const response = await axios.get(
     "https://ipinfo.io/json?token=89434a11fa82d7"
   );
+  return response.data;
+};
+
+export const forgotPassword = async (email) => {
+  const response = await axios.post(`${baseUrl}/api/forgot-password`, {
+    email,
+  });
+  return response.data;
+};
+
+export const resetPassword = async (
+  token,
+  email,
+  password,
+  password_confirmation
+) => {
+  const response = await axios.post(`${baseUrl}/api/reset-password`, {
+    token,
+    email,
+    password,
+    password_confirmation,
+  });
   return response.data;
 };
