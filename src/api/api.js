@@ -2,14 +2,14 @@ import axios from "axios";
 export const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export const loginUser = async (loginId, password) => {
-  const response = await axios.post(`${baseUrl}/api/login`, {
+  const response = await axios.post(`${baseUrl}/api/auth/login`, {
     ...(loginId.includes("@") ? { email: loginId } : { username: loginId }),
     password,
   });
   return response.data;
 };
 export const signupUser = async (data) => {
-  const response = await axios.post(`${baseUrl}/api/register`, {
+  const response = await axios.post(`${baseUrl}/api/auth/register`, {
     first_name: data.first_name,
     last_name: data.last_name,
     email: data.email,
@@ -21,7 +21,7 @@ export const signupUser = async (data) => {
 };
 
 export const createEvent = async (data, token) => {
-  const response = await axios.post(`${baseUrl}/api/event/create`, data, {
+  const response = await axios.post(`${baseUrl}/api/admin/event/create`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -30,7 +30,7 @@ export const createEvent = async (data, token) => {
 };
 
 export const getCategoryList = async (token) => {
-  const response = await axios.get(`${baseUrl}/api/category/list`, {
+  const response = await axios.get(`${baseUrl}/api/admin/category/list`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -63,7 +63,7 @@ export const getUserCountry = async () => {
 };
 
 export const forgotPassword = async (email) => {
-  const response = await axios.post(`${baseUrl}/api/forgot-password`, {
+  const response = await axios.post(`${baseUrl}/api/auth/forgot-password`, {
     email,
   });
   return response.data;
@@ -75,7 +75,7 @@ export const resetPassword = async (
   password,
   password_confirmation
 ) => {
-  const response = await axios.post(`${baseUrl}/api/reset-password`, {
+  const response = await axios.post(`${baseUrl}/api/auth/reset-password`, {
     token,
     email,
     password,
