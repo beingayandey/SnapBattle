@@ -49,12 +49,8 @@ const CreateEventPage = () => {
 
     try {
       const token = sessionStorage.getItem("token");
-      const userId = sessionStorage.getItem("userId");
-      console.log("sessionStorage:", { token, userId });
 
-      if (!token || !userId) {
-        throw new Error("Missing token or user ID. Please log in.");
-      }
+      if (!token) throw new Error("Missing token. Please log in.");
 
       console.log("formData:", formData);
 
@@ -76,7 +72,6 @@ const CreateEventPage = () => {
         new Date(formData.end_date).toISOString()
       );
       formDataToSend.append("visibility", formData.visibility);
-      formDataToSend.append("creator_id", String(userId));
 
       console.log("FormData entries:");
       for (let [key, value] of formDataToSend.entries()) {

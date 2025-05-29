@@ -107,13 +107,13 @@ export const getUserEvents = async ({
 };
 
 export const sendOtp = async (email) => {
-  const response = await axios.post(`${baseUrl}/api/auth/send-otp`, {
+  const response = await axios.post(`${baseUrl}/api/auth/send-verification`, {
     email,
   });
   return response.data;
 };
 export const verifyOtp = async (identifier, code, channel = "email") => {
-  const endpoint = "verify-otp"; // Matches the screenshot
+  const endpoint = "verify"; // Matches the screenshot
   const response = await axios.post(
     `${baseUrl}/api/auth/${endpoint}`,
     {
