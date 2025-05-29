@@ -69,21 +69,21 @@ const AppRoutes = () => (
       </Route>
 
       {/* User Routes */}
-      {/* <Route element={<ProtectedRoute allowedRole="user" />}> */}
-      <Route path="/user" element={<UserLayout />}>
-        <Route path="dashboard" element={<UserDashboard />} />
-        <Route path="event/:eventId" element={<UserEventDetails />} />
-        <Route path="submissions" element={<MySubmissions />} />
-        <Route path="upload" element={<UploadPhoto />} />
-        <Route path="vote" element={<VotePage />} />
-        <Route path="vote/:eventId" element={<EventDetailPage />} />
-        <Route path="my-votes" element={<MyVotes />} />
-        <Route path="notifications" element={<NotificationsPage />} />
-        <Route path="profile" element={<ProfilePage />} />
-        <Route path="rules" element={<RulesPage />} />
-        <Route path="settings" element={<SettingsPage />} />
+      <Route element={<ProtectedRoute allowedRole="user" />}>
+        <Route path="/user" element={<UserLayout />}>
+          <Route path="dashboard" element={<UserDashboard />} />
+          <Route path="event/:eventId" element={<UserEventDetails />} />
+          <Route path="submissions" element={<MySubmissions />} />
+          <Route path="upload" element={<UploadPhoto />} />
+          <Route path="vote" element={<VotePage />} />
+          <Route path="vote/:eventId" element={<EventDetailPage />} />
+          <Route path="my-votes" element={<MyVotes />} />
+          <Route path="notifications" element={<NotificationsPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="rules" element={<RulesPage />} />
+          <Route path="settings" element={<SettingsPage />} />
+        </Route>
       </Route>
-      {/* </Route> */}
 
       {/* Default Redirect */}
       <Route path="*" element={<Navigate to="/" replace />} />

@@ -150,6 +150,7 @@ const Signup = () => {
                   errors.fullName ? "input-error" : ""
                 }`}
                 placeholder="Full Name"
+                autoComplete="off" // Disable autofill for this field
               />
             </div>
             {errors.fullName && (
@@ -166,6 +167,7 @@ const Signup = () => {
                 {...register("email")}
                 className={`input-field ${errors.email ? "input-error" : ""}`}
                 placeholder="Email"
+                autoComplete="off" // Disable autofill for this field
               />
             </div>
             {errors.email && (
@@ -177,13 +179,14 @@ const Signup = () => {
             <div className="input-wrapper">
               <FiLock className="input-icon" />
               <input
-                type={showPassword ? "text" : "password"}
+                type="text"
                 id="password"
                 {...register("password")}
                 className={`input-field ${
                   errors.password ? "input-error" : ""
-                }`}
+                } ${!showPassword ? "password-mask" : ""}`}
                 placeholder="Password"
+                autoComplete="new-password" // Explicitly mark as new password to prevent saved info popup
               />
               <button
                 type="button"
@@ -202,13 +205,14 @@ const Signup = () => {
             <div className="input-wrapper">
               <FiLock className="input-icon" />
               <input
-                type={showConfirmPassword ? "text" : "password"}
+                type="text"
                 id="confirmPassword"
                 {...register("confirmPassword")}
                 className={`input-field ${
                   errors.confirmPassword ? "input-error" : ""
-                }`}
+                } ${!showConfirmPassword ? "password-mask" : ""}`}
                 placeholder="Confirm Password"
+                autoComplete="new-password" // Explicitly mark as new password to prevent saved info popup
               />
               <button
                 type="button"
@@ -234,6 +238,7 @@ const Signup = () => {
                   errors.phoneNumber ? "input-error" : ""
                 }`}
                 placeholder="Phone Number"
+                autoComplete="tel" // Allow autofill for phone number
               />
             </div>
             {errors.phoneNumber && (

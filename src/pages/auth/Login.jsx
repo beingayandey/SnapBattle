@@ -23,7 +23,6 @@ const Login = () => {
   const token = sessionStorage.getItem("token");
   const role = sessionStorage.getItem("role");
 
-  // Prefill email from query parameter on mount
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const email = searchParams.get("email");
@@ -112,11 +111,13 @@ const Login = () => {
             <div className="input-wrapper">
               <FiLock className="input-icon" />
               <input
-                type={showPassword ? "text" : "password"}
+                type="text" // Changed to text to avoid browser's native eye icon
                 id="password"
                 value={body.password}
                 onChange={(e) => setBody({ ...body, password: e.target.value })}
-                className="input-field"
+                className={`input-field ${
+                  !showPassword ? "password-mask" : ""
+                }`} // Apply masking class
                 placeholder="Password"
                 required
               />

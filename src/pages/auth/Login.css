@@ -218,7 +218,25 @@ body:has(.full-page-loader) {
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
+/* Mask the input to look like a password field */
+.password-mask {
+  -webkit-text-security: disc; /* For Safari and other WebKit browsers */
+  text-security: disc; /* Standard property (not widely supported yet) */
+  font-family: "password", monospace; /* Fallback for browsers that don't support text-security */
+}
 
+/* Fallback for older browsers: Use a dot character to mimic password masking */
+@font-face {
+  font-family: "password";
+  src: local("Arial");
+  unicode-range: U+0020- U+007E;
+}
+
+.password-mask::placeholder {
+  -webkit-text-security: none;
+  text-security: none;
+  font-family: inherit;
+}
 /* Keyframes for spinner animation */
 @keyframes spin {
   0% {
