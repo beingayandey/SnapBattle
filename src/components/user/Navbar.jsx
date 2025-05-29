@@ -24,6 +24,7 @@ function Navbar({ toggleSidebar }) {
     sessionStorage.removeItem("role");
     sessionStorage.removeItem("justLoggedIn");
     sessionStorage.removeItem("userId");
+    <Navigate to="/login" replace />;
   };
 
   return (

@@ -1,13 +1,23 @@
 import React, { useState } from "react";
+import OtpInput from "./OtpInput";
 import "./EmailVerificationPending.css";
+import { useToast } from "../../components/toast/ToastNotification";
 
 const EmailVerificationPending = () => {
-  const [isResent, setIsResent] = useState(false);
+  const [otp, setOtp] = useState("");
+  const { showSuccess } = useToast();
 
   const handleResend = () => {
     // Simulate sending verification email
-    setIsResent(true);
+
     setTimeout(() => setIsResent(false), 3000); // Reset message after 3 seconds
+    showSuccess("Verification email resent successfully!");
+  };
+
+  const handleOtpChange = (otpValue) => {
+    setOtp(otpValue);
+    // Add logic to verify OTP if needed
+    console.log("OTP Entered:", otpValue);
   };
 
   return (
@@ -19,14 +29,13 @@ const EmailVerificationPending = () => {
           (and spam/junk folder) for the verification email to access your
           dashboard.
         </p>
+        <div className="otp-section">
+          <p className="verification-message">Enter OTP from email:</p>
+          <OtpInput length={6} onChange={handleOtpChange} />
+        </div>
         <button onClick={handleResend} className="resend-button">
           Resend Verification Link
         </button>
-        {isResent && (
-          <p className="success-message">
-            Verification link sent! Please check your email.
-          </p>
-        )}
       </div>
     </div>
   );

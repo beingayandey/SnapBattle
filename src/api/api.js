@@ -45,7 +45,7 @@ export const getEventList = async ({ token, page = 1, status, limit = 10 }) => {
   }
 
   const response = await axios.get(
-    `${baseUrl}/api/event/list?${queryParams.toString()}`,
+    `${baseUrl}/api/admin/event/list?${queryParams.toString()}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -81,5 +81,51 @@ export const resetPassword = async (
     password,
     password_confirmation,
   });
+  return response.data;
+};
+
+export const getUserEvents = async ({
+  token,
+  page = 1,
+  status = "Active",
+  limit = 10,
+}) => {
+  const queryParams = new URLSearchParams({
+    page,
+    status,
+    limit,
+  });
+  const response = await axios.get(
+    `${baseUrl}/api/user/event/list?${queryParams.toString()}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const sendOtp = async (email) => {
+  const response = await axios.post(`${baseUrl}/api/auth/send-otp`, {
+    email,
+  });
+  return response.data;
+};
+export const verifyOtp = async (identifier, code, channel = "email") => {
+  const endpoint = "verify-otp"; // Matches the screenshot
+  const response = await axios.post(
+    `${baseUrl}/api/auth/${endpoint}`,
+    {
+      code, // e.g., "558861"
+      channel, // e.g., "phone" or "email"
+    },
+    {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      transformRequest: [(data) => new URLSearchParams(data)],
+    }
+  );
   return response.data;
 };

@@ -12,6 +12,7 @@ import EventDeadlinePicker from "../../components/admin/CreateEvent/EventDeadlin
 import EventVisibilityOptions from "../../components/admin/CreateEvent/EventVisibilityOptions";
 import SubmitCreateEventButton from "../../components/admin/CreateEvent/SubmitCreateEventButton";
 import "./CreateEventPage.css";
+import { useToast } from "../../components/toast/ToastNotification";
 
 const CreateEventPage = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const CreateEventPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const [image, setImage] = useState(null);
+  const { showSuccess, showError, showInfo } = useToast();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -89,7 +91,7 @@ const CreateEventPage = () => {
       setImage(null);
     } catch (error) {
       console.error("Submission error:", error);
-      setError(error.message || "Failed to create event");
+      showError(error.message || "Failed to create event");
     } finally {
       setIsSubmitting(false);
     }
@@ -107,11 +109,7 @@ const CreateEventPage = () => {
   return (
     <div className="create-event-page">
       <h1 className="page-title">Create New Event</h1>
-      {error && (
-        <div className="error-message" style={{ color: "red" }}>
-          {error}
-        </div>
-      )}
+
       <form onSubmit={handleSubmit} className="event-form">
         <div className="form-grid">
           <div className="form-column">

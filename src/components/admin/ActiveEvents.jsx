@@ -1,37 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import clsx from "clsx";
+import { getEventList } from "../../api/api";
 
 const ActiveEvents = ({ theme = "light" }) => {
   const navigate = useNavigate();
 
-  const events = [
-    {
-      id: "1",
-      title: "Summer Snap 2025",
-      deadline: "2025-06-15",
-      submissions: 150,
-      status: "Active",
-    },
-    {
-      id: "2",
-      title: "Winter Frames",
-      deadline: "2025-01-10",
-      submissions: 80,
-      status: "Active",
-    },
-    {
-      id: "3",
-      title: "City Lights",
-      deadline: "2025-03-20",
-      submissions: 200,
-      status: "Ended",
-    },
-  ];
+  const [events, setEvents] = useState([]);
+
+  const token = sessionStorage.getItem("token");
+
+  const fetchEvents = async (page = 1, status = "Active", limitPerPage = 3) => {
+    try {
+      const response = await getEventList({
+        token,
+        page,
+        status,
+        limit: limitPerPage,
+      });
+      setEvents(response.data.docs);
+    } catch (error) {
+      console.error("Error fetching events:", error);
+    }
+  };
 
   const handleManageClick = (eventId) => {
     navigate(`/admin/events/${eventId}/manage`);
   };
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
 
   return (
     <div
@@ -56,9 +55,19 @@ const ActiveEvents = ({ theme = "light" }) => {
           </thead>
           <tbody>
             {events.map((event) => (
-              <tr key={event.id}>
-                <td data-label="Event Title">{event.title}</td>
-                <td data-label=" Deadline">{event.deadline}</td>
+              <tr key={event._id}>
+                <td data-label="Event Title">{event.description}</td>
+                <td data-label="Deadline">
+                  {new Date(event.end_date).toLocaleString("en-IN", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                    timeZone: "Asia/Kolkata",
+                  })}
+                </td>
                 <td data-label="Submissions">{event.submissions}</td>
                 <td data-label="Status">
                   <span
@@ -70,7 +79,7 @@ const ActiveEvents = ({ theme = "light" }) => {
                 <td data-label="Action">
                   <button
                     className="manage-button"
-                    onClick={() => handleManageClick(event.id)}
+                    onClick={() => handleManageClick(event._id)}
                   >
                     Manage
                   </button>
@@ -82,12 +91,21 @@ const ActiveEvents = ({ theme = "light" }) => {
       </div>
       <div className="card-view">
         {events.map((event) => (
-          <div key={event.id} className="event-card">
+          <div key={event._id} className="event-card">
             <p>
-              <strong>Title:</strong> {event.title}
+              <strong>Title:</strong> {event.description}
             </p>
             <p>
-              <strong>Deadline:</strong> {event.deadline}
+              <strong>Deadline:</strong>{" "}
+              {new Date(event.end_date).toLocaleString("en-IN", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+                timeZone: "Asia/Kolkata",
+              })}
             </p>
             <p>
               <strong>Submissions:</strong> {event.submissions}
@@ -102,7 +120,7 @@ const ActiveEvents = ({ theme = "light" }) => {
             </p>
             <button
               className="manage-button"
-              onClick={() => handleManageClick(event.id)}
+              onClick={() => handleManageClick(event._id)}
             >
               Manage
             </button>

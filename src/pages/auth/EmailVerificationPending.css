@@ -40,6 +40,7 @@
   font-size: var(--font-size-base);
   cursor: pointer;
   transition: filter 0.3s ease;
+  margin-top: 2rem;
 }
 
 .resend-button:hover {
