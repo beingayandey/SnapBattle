@@ -45,7 +45,7 @@ export const getEventList = async ({ token, page = 1, status, limit = 10 }) => {
   }
 
   const response = await axios.get(
-    `${baseUrl}/api/admin/event/list?${queryParams.toString()}`,
+    `${baseUrl}/api/admin/events?${queryParams.toString()}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -96,7 +96,7 @@ export const getUserEvents = async ({
     limit,
   });
   const response = await axios.get(
-    `${baseUrl}/api/user/event/list?${queryParams.toString()}`,
+    `${baseUrl}/api/user/events?${queryParams.toString()}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
