@@ -1,18 +1,22 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./OtpInput.css";
 
-const OtpInput = ({ length = 4, onChange }) => {
+const OtpInput = ({ length = 4, onChange, disabled = false }) => {
   // Initialize state for OTP values
   const [otp, setOtp] = useState(Array(length).fill(""));
   const inputRefs = useRef([]);
 
   // Focus the first input on mount
   useEffect(() => {
-    inputRefs.current[0]?.focus();
-  }, []);
+    if (!disabled) {
+      inputRefs.current[0]?.focus();
+    }
+  }, [disabled]);
 
   // Handle input change
   const handleChange = (e, index) => {
+    if (disabled) return; // Prevent changes when disabled
+
     const value = e.target.value;
 
     // Only allow single digit
@@ -22,8 +26,8 @@ const OtpInput = ({ length = 4, onChange }) => {
     newOtp[index] = value;
     setOtp(newOtp);
 
-    // Call onChange prop with the complete OTP
-    if (onChange) {
+    // Only call onChange when all digits are filled
+    if (newOtp.every((digit) => digit !== "") && index === length - 1) {
       onChange(newOtp.join(""));
     }
 
@@ -35,6 +39,8 @@ const OtpInput = ({ length = 4, onChange }) => {
 
   // Handle key down events (e.g., backspace, arrow keys)
   const handleKeyDown = (e, index) => {
+    if (disabled) return; // Prevent key events when disabled
+
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       inputRefs.current[index - 1].focus();
     } else if (e.key === "ArrowLeft" && index > 0) {
@@ -46,14 +52,15 @@ const OtpInput = ({ length = 4, onChange }) => {
 
   // Handle paste event
   const handlePaste = (e) => {
+    if (disabled) return; // Prevent paste when disabled
+
     e.preventDefault();
     const pastedData = e.clipboardData.getData("text").trim();
     if (pastedData.length === length && /^[0-9]+$/.test(pastedData)) {
       const newOtp = pastedData.split("").slice(0, length);
       setOtp(newOtp);
-      if (onChange) {
-        onChange(newOtp.join(""));
-      }
+      // Only call onChange when all digits are filled
+      onChange(newOtp.join(""));
       inputRefs.current[length - 1].focus();
     }
   };
@@ -70,8 +77,9 @@ const OtpInput = ({ length = 4, onChange }) => {
           onKeyDown={(e) => handleKeyDown(e, index)}
           onPaste={handlePaste}
           ref={(el) => (inputRefs.current[index] = el)}
-          className="otp-input"
+          className={`otp-input ${disabled ? "otp-input-disabled" : ""}`}
           autoComplete="off"
+          disabled={disabled}
         />
       ))}
     </div>

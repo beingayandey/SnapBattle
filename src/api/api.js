@@ -112,6 +112,7 @@ export const sendOtp = async (email) => {
   });
   return response.data;
 };
+
 export const verifyOtp = async (identifier, code, channel = "email") => {
   const endpoint = "verify"; // Matches the screenshot
   const response = await axios.post(
@@ -125,6 +126,32 @@ export const verifyOtp = async (identifier, code, channel = "email") => {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       transformRequest: [(data) => new URLSearchParams(data)],
+    }
+  );
+  return response.data;
+};
+
+export const logOut = async (token) => {
+  const response = await axios.post(`${baseUrl}/api/auth/logout`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+
+export const eventSubmissions = async ({ token, page = 1, limit = 10 }) => {
+  const queryParams = new URLSearchParams({
+    page,
+    limit,
+  });
+  const response = await axios.get(
+    `${baseUrl}/api/admin/submissions?${queryParams.toString()}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
   return response.data;
