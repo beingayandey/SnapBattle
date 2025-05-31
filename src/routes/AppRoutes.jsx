@@ -33,17 +33,22 @@ import UserDashboard from "../pages/user/UserDashboard";
 import UserEventDetails from "../pages/user/UserEventDetails";
 import VotePage from "../pages/user/VotePage";
 import ProtectedRoute from "../ProtectedRoute";
+import PublicRoute from "../PublicRoute"; // Import the new PublicRoute
+import VerifyPhone from "../pages/auth/VerifyPhone";
 
 const AppRoutes = () => (
   <ToastProvider>
     <Routes>
       {/* Public Routes */}
-      <Route path="/" element={<HomePage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
-      <Route path="/verify-email" element={<EmailVerificationPending />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route element={<PublicRoute />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/verify-email" element={<EmailVerificationPending />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+      </Route>
+      <Route path="/verify-phone" element={<VerifyPhone />} />
 
       {/* Admin Routes */}
       <Route element={<ProtectedRoute allowedRole="admin" />}>

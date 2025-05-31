@@ -23,6 +23,8 @@ const mockSubmissions = Array.from({ length: 10 }, (_, i) => ({
   ),
 }));
 
+// viewUserSubmission
+
 const MySubmissions = () => {
   const [submissionsByEvent, setSubmissionsByEvent] = useState([]);
 

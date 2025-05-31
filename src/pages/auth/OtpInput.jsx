@@ -1,46 +1,42 @@
+// OtpInput.jsx
 import React, { useState, useRef, useEffect } from "react";
 import "./OtpInput.css";
 
-const OtpInput = ({ length = 4, onChange, disabled = false }) => {
-  // Initialize state for OTP values
+const OtpInput = ({ length = 4, onChange, disabled = false, resetTrigger }) => {
   const [otp, setOtp] = useState(Array(length).fill(""));
   const inputRefs = useRef([]);
 
-  // Focus the first input on mount
   useEffect(() => {
     if (!disabled) {
       inputRefs.current[0]?.focus();
     }
   }, [disabled]);
 
-  // Handle input change
+  useEffect(() => {
+    setOtp(Array(length).fill(""));
+    inputRefs.current[0]?.focus();
+  }, [resetTrigger, length]); // Reset on change
+
   const handleChange = (e, index) => {
-    if (disabled) return; // Prevent changes when disabled
-
+    if (disabled) return;
     const value = e.target.value;
-
-    // Only allow single digit
     if (!/^[0-9]?$/.test(value)) return;
 
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
 
-    // Only call onChange when all digits are filled
     if (newOtp.every((digit) => digit !== "") && index === length - 1) {
       onChange(newOtp.join(""));
     }
 
-    // Move to next input if a digit is entered
     if (value && index < length - 1) {
       inputRefs.current[index + 1].focus();
     }
   };
 
-  // Handle key down events (e.g., backspace, arrow keys)
   const handleKeyDown = (e, index) => {
-    if (disabled) return; // Prevent key events when disabled
-
+    if (disabled) return;
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       inputRefs.current[index - 1].focus();
     } else if (e.key === "ArrowLeft" && index > 0) {
@@ -50,16 +46,13 @@ const OtpInput = ({ length = 4, onChange, disabled = false }) => {
     }
   };
 
-  // Handle paste event
   const handlePaste = (e) => {
-    if (disabled) return; // Prevent paste when disabled
-
+    if (disabled) return;
     e.preventDefault();
     const pastedData = e.clipboardData.getData("text").trim();
     if (pastedData.length === length && /^[0-9]+$/.test(pastedData)) {
       const newOtp = pastedData.split("").slice(0, length);
       setOtp(newOtp);
-      // Only call onChange when all digits are filled
       onChange(newOtp.join(""));
       inputRefs.current[length - 1].focus();
     }

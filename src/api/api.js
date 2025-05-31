@@ -87,12 +87,12 @@ export const resetPassword = async (
 export const getUserEvents = async ({
   token,
   page = 1,
-  status = "Active",
+  // status = "Active",
   limit = 10,
 }) => {
   const queryParams = new URLSearchParams({
     page,
-    status,
+    // status,
     limit,
   });
   const response = await axios.get(
@@ -106,9 +106,9 @@ export const getUserEvents = async ({
   return response.data;
 };
 
-export const sendOtp = async (email) => {
+export const sendOtp = async (value) => {
   const response = await axios.post(`${baseUrl}/api/auth/send-verification`, {
-    email,
+    attribute: value,
   });
   return response.data;
 };
@@ -132,14 +132,27 @@ export const verifyOtp = async (identifier, code, channel = "email") => {
 };
 
 export const logOut = async (token) => {
-  const response = await axios.post(`${baseUrl}/api/auth/logout`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data;
-};
+  if (!token) {
+    throw new Error("Token not found. Please log in again.");
+  }
 
+  try {
+    const response = await axios.post(
+      `${baseUrl}/api/auth/logout`,
+      {}, // Empty body for POST
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data; // Expected: { success: true, message: "Successfully logged out" }
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.error || "Failed to log out. Please try again."
+    );
+  }
+};
 
 export const eventSubmissions = async ({ token, page = 1, limit = 10 }) => {
   const queryParams = new URLSearchParams({
@@ -154,5 +167,23 @@ export const eventSubmissions = async ({ token, page = 1, limit = 10 }) => {
       },
     }
   );
+  return response.data;
+};
+
+export const viewUserSubmission = async (token) => {
+  const response = await axios.get(`${baseUrl}/api/user/submissions`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+export const viewProfile = async (token) => {
+  const response = await axios.get(`${baseUrl}/api/user/profile`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 };

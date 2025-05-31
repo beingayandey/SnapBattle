@@ -1,22 +1,66 @@
 import React, { useState } from "react";
-import "./Header.css";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { FaBell, FaUserCircle, FaBars } from "react-icons/fa";
+import { cleanupVerification } from "../../redux/slices/verificationSlice";
+import "./Header.css";
+import { useToast } from "../../components/toast/ToastNotification";
+import { logOut } from "../../api/api";
 
-const Header = ({ toggleSidebar, onLogout }) => {
+const Header = ({ toggleSidebar }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { showSuccess, showError } = useToast();
 
   const toggleProfile = () => setIsProfileOpen(!isProfileOpen);
 
-  const handleLogout = (e) => {
-    e.preventDefault(); // Prevent any default behavior
-    console.log("Logout clicked in Header..."); // Debug log
-    onLogout(); // Call onLogout from AdminLayout
-    setIsProfileOpen(false); // Close dropdown
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    const token = sessionStorage.getItem("token");
+
+    if (!token) {
+      showError("No session found. You are already logged out.");
+      // Clear sessionStorage and verification data for safety
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("role");
+      sessionStorage.removeItem("userId");
+      sessionStorage.removeItem("justLoggedIn");
+      dispatch(cleanupVerification());
+      navigate("/login");
+      setIsProfileOpen(false);
+      return;
+    }
+
+    try {
+      const response = await logOut(token);
+      showSuccess(response.message || "Logged out successfully!");
+      // Clear sessionStorage
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("role");
+      sessionStorage.removeItem("userId");
+      sessionStorage.removeItem("justLoggedIn");
+      // Clear verification data
+      dispatch(cleanupVerification());
+      navigate("/login");
+    } catch (err) {
+      showError(err.message || "Logout failed. Please try again.");
+      console.error("Logout error:", err.message);
+      // Clear sessionStorage and verification data even on failure
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("role");
+      sessionStorage.removeItem("userId");
+      sessionStorage.removeItem("justLoggedIn");
+      dispatch(cleanupVerification());
+      navigate("/login");
+    } finally {
+      setIsProfileOpen(false);
+    }
   };
 
   const profileItems = [
     { name: "Profile", href: "#profile" },
-    { name: "Settings", href: "#settings" },
+    { name: "Settings", href: "/settings" },
     { name: "Logout", action: handleLogout },
   ];
 

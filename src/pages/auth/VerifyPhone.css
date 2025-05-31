@@ -1,4 +1,4 @@
-.verification-container {
+.verify-phone-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -7,7 +7,7 @@
   padding: var(--spacing-lg);
 }
 
-.verification-card {
+.verify-phone-card {
   background: var(--bg-card);
   border-radius: 12px;
   box-shadow: var(--shadow);
@@ -18,7 +18,7 @@
   animation: fadeIn 0.5s ease-out;
 }
 
-.verification-content {
+.verify-phone-content {
   position: relative;
 }
 
@@ -67,7 +67,7 @@
   }
 }
 
-.verification-title {
+.verify-phone-title {
   font-size: var(--font-size-lg);
   font-weight: 600;
   color: var(--text-main);
@@ -75,67 +75,93 @@
   text-align: center;
 }
 
-.verification-message {
+.verify-phone-message {
   font-size: var(--font-size-base);
   color: var(--text-secondary);
   margin-bottom: var(--spacing-lg);
   text-align: center;
 }
 
-.verification-message strong {
+.verify-phone-message strong {
   color: var(--text-main);
 }
 
-.otp-section {
-  margin-bottom: var(--spacing-lg);
-}
-
-.cooldown-message {
-  font-size: var(--font-size-sm);
-  color: var(--text-muted);
+.error-message {
+  color: var(--danger);
   text-align: center;
-  margin-bottom: var(--spacing-sm);
+
+  font-size: var(--font-size-base);
 }
 
-.resend-button {
-  width: 100%;
+.otp-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.resend-otp-button,
+.verify-otp-button {
+  flex: 1;
   padding: 10px;
-  background: var(--primary-gradient);
-  color: var(--bg-card);
   border: none;
   border-radius: 8px;
   font-size: var(--font-size-base);
   font-weight: 500;
   cursor: pointer;
-  transition: filter 0.2s, transform 0.1s;
+  transition: filter 0.2s, transform 0.1s, background 0.2s;
 }
 
-.resend-button:hover:not(:disabled) {
+.resend-otp-button {
+  background: var(--bg-secondary);
+  color: var(--text-main);
+}
+
+.resend-otp-button:hover:not(:disabled) {
+  background: var(--bg-secondary);
   filter: var(--button-hover);
   transform: translateY(-1px);
 }
 
-.resend-button:active:not(:disabled) {
+.resend-otp-button:active:not(:disabled) {
   transform: translateY(0);
 }
 
-.resend-button:disabled {
+.verify-otp-button {
+  background: var(--primary-gradient);
+  color: var(--bg-card);
+}
+
+.verify-otp-button:hover:not(:disabled) {
+  filter: var(--button-hover);
+  transform: translateY(-1px);
+}
+
+.verify-otp-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.resend-otp-button:disabled,
+.verify-otp-button:disabled {
   background: var(--bg-secondary);
   opacity: 0.6;
   cursor: not-allowed;
 }
 
 @media (max-width: 380px) {
-  .verification-card {
+  .verify-phone-card {
     padding: var(--spacing-md);
     max-width: 100%;
   }
 
-  .verification-title {
+  .verify-phone-title {
     font-size: 1.25rem;
   }
 
-  .verification-message {
+  .verify-phone-message {
     font-size: var(--font-size-sm);
+  }
+
+  .otp-actions {
+    flex-direction: column;
   }
 }

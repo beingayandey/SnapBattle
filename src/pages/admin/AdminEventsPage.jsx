@@ -1,92 +1,69 @@
-import React, { useEffect, useState } from "react";
+// src/pages/AdminEventsPage.js
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import EventTable from "../../components/admin/AdminEvents/EventTable";
 import "./AdminEventsPage.css";
-import { getEventList } from "../../api/api";
+import {
+  fetchEvents,
+  setSortConfig,
+  setFilterStatus,
+  setLimit,
+  setCurrentPage,
+  deleteEvents,
+} from "../../redux/slices/eventsSlice";
 
 const AdminEventsPage = () => {
-  const [events, setEvents] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [sortConfig, setSortConfig] = useState({
-    key: "title",
-    direction: "asc",
-  });
-  const [filterStatus, setFilterStatus] = useState("All");
-  const [limit, setLimit] = useState(10);
-  const [totalPages, setTotalPages] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+  const {
+    events,
+    currentPage,
+    totalPages,
+    filterStatus,
+    limit,
+    sortConfig,
+    isLoading,
+  } = useSelector((state) => state.events);
   const token = sessionStorage.getItem("token");
 
-  const fetchEvents = async (
-    page = 1,
-    status = filterStatus,
-    limitPerPage = limit
-  ) => {
-    setIsLoading(true);
-    try {
-      const response = await getEventList({
-        token,
-        page,
-        status: status === "All" ? undefined : status,
-        limit: limitPerPage,
-      });
-      const mappedEvents = response.data.docs.map((event) => ({
-        id: event._id,
-        name: event.title,
-        startDate: event.start_date,
-        endDate: event.end_date,
-        submissionCount: 0, // Placeholder as API doesn't provide this
-        status:
-          event.status.charAt(0).toUpperCase() +
-          event.status.slice(1).toLowerCase(),
-        visibility: event.visibility ? "Public" : "Private",
-      }));
-      setEvents(mappedEvents);
-      setTotalPages(response.data.totalPages);
-      setCurrentPage(response.data.page);
-    } catch (error) {
-      console.error("Error fetching events:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchEvents();
-  }, []);
+    dispatch(
+      fetchEvents({ token, page: currentPage, status: filterStatus, limit })
+    );
+  }, [dispatch, token, currentPage, limit]); // Removed filterStatus from dependencies
 
   const handleSort = (key) => {
-    setSortConfig((prev) => ({
-      key,
-      direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
-    }));
+    dispatch(
+      setSortConfig({
+        key,
+        direction:
+          sortConfig.key === key && sortConfig.direction === "asc"
+            ? "desc"
+            : "asc",
+      })
+    );
   };
 
   const handleFilter = (status) => {
-    setFilterStatus(status);
-    setCurrentPage(1);
-    fetchEvents(1, status, limit);
+    dispatch(setFilterStatus(status));
+    dispatch(setCurrentPage(1)); // Reset to page 1 on filter change
   };
 
   const handleLimitChange = (newLimit) => {
-    setLimit(newLimit);
-    setCurrentPage(1);
-    fetchEvents(1, filterStatus, newLimit);
+    dispatch(setLimit(newLimit));
+    dispatch(
+      fetchEvents({ token, page: 1, status: filterStatus, limit: newLimit })
+    );
   };
 
   const handlePageChange = (page) => {
-    setCurrentPage(page);
-    fetchEvents(page, filterStatus, limit);
+    dispatch(setCurrentPage(page));
+    dispatch(fetchEvents({ token, page, status: filterStatus, limit }));
   };
 
   const handleDeleteEvents = (eventIds) => {
-    // Placeholder for API call to delete events
-    // For now, filter out deleted events from state
-    setEvents((prevEvents) =>
-      prevEvents.filter((event) => !eventIds.includes(event.id))
-    );
-    // In a real implementation, you would make an API call here
-    // await deleteEvents({ token, eventIds });
-    // Then refetch or update state accordingly
+    dispatch(deleteEvents(eventIds));
+    // Optionally, refetch events after deletion if needed
+    // dispatch(fetchEvents({ token, page: currentPage, status: filterStatus, limit }));
   };
 
   const sortedEvents = [...events].sort((a, b) => {

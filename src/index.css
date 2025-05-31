@@ -298,3 +298,7 @@ li {
     padding-inline: 0 !important;
   }
 }
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}

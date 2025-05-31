@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 import { Link, useNavigate, Navigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setPhoneVerificationStatus } from "../../redux/slices/verificationSlice";
+import {
+  setPhoneVerificationStatus,
+  cleanupVerification,
+} from "../../redux/slices/verificationSlice";
 import "./Login.css";
 import { useToast } from "../../components/toast/ToastNotification";
 import { loginUser } from "../../api/api";
@@ -46,14 +49,17 @@ const Login = () => {
       sessionStorage.setItem("userId", response.data.user._id);
       sessionStorage.setItem("justLoggedIn", "true");
 
-      // Update phone verification status in Redux
-      const isPhoneVerified = response.data.user.phone_verified_at !== null;
+      // Update phone verification status in Redux and localStorage
+      const isAdmin = response.data.user.roles.includes("admin");
+      const isPhoneVerified = isAdmin
+        ? true
+        : response.data.user.phone_verified_at !== null;
       dispatch(setPhoneVerificationStatus(isPhoneVerified));
 
       setBody({ loginId: "", password: "" });
       showSuccess("Login successful!");
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      if (response.data.user.roles.includes("admin")) {
+      if (isAdmin) {
         navigate("/admin/dashboard");
       } else {
         navigate("/user/dashboard");
@@ -70,6 +76,8 @@ const Login = () => {
       }
       setError(errorMessage);
       showError(errorMessage);
+      // Cleanup verification status on failed login
+      dispatch(cleanupVerification());
     } finally {
       setLoading(false);
     }
@@ -128,15 +136,13 @@ const Login = () => {
               <div className="input-wrapper">
                 <FiLock className="input-icon" />
                 <input
-                  type="text"
+                  type={showPassword ? "text" : "password"} // Dynamic type based on showPassword
                   id="password"
                   value={body.password}
                   onChange={(e) =>
                     setBody((prev) => ({ ...prev, password: e.target.value }))
                   }
-                  className={`input-field ${
-                    !showPassword ? "password-mask" : ""
-                  }`}
+                  className="input-field" // Removed password-mask class
                   placeholder="Password"
                   required
                   disabled={loading}
@@ -153,7 +159,7 @@ const Login = () => {
             </div>
 
             <Link to="/forgot-password" className="forgot-password-link">
-              Forgot Password?
+              Forgotten Password?
             </Link>
 
             <button type="submit" className="submit-button" disabled={loading}>

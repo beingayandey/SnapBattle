@@ -1,0 +1,55 @@
+.phone-verification-alert {
+  background: var(--bg-card);
+  border: 1px solid var(--danger);
+  border-radius: 8px;
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  box-shadow: var(--shadow);
+}
+
+.alert-message {
+  color: var(--danger);
+  font-size: var(--font-size-base);
+  text-align: center;
+  margin: 0;
+}
+
+.verify-now-button {
+  padding: 8px 16px;
+  background: var(--primary-gradient);
+  color: var(--bg-card);
+  border: none;
+  border-radius: 6px;
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: filter 0.2s, transform 0.1s;
+}
+
+.verify-now-button:hover {
+  filter: var(--button-hover);
+  transform: translateY(-1px);
+}
+
+.verify-now-button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+  .phone-verification-alert {
+    padding: var(--spacing-sm);
+  }
+
+  .alert-message {
+    font-size: var(--font-size-sm);
+  }
+
+  .verify-now-button {
+    font-size: var(--font-size-sm);
+    padding: 6px 12px;
+  }
+}
