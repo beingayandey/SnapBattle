@@ -3,11 +3,11 @@ import UploadRules from "./UploadRules";
 import UploadForm from "./UploadForm";
 import "./UploadSection.css";
 
-const UploadSection = () => {
+const UploadSection = ({ eventId }) => {
   return (
     <div className="upload-section">
       <UploadRules />
-      <UploadForm />
+      <UploadForm eventId={eventId} />
     </div>
   );
 };

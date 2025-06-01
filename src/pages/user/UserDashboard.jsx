@@ -54,7 +54,7 @@ function UserDashboard() {
         )}
         <div className="events-grid">
           {events.map((event) => (
-            <EventCard key={event.id} event={event} />
+            <EventCard key={event._id} event={event} />
           ))}
         </div>
       </section>

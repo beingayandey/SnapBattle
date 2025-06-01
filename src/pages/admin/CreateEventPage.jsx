@@ -80,7 +80,7 @@ const CreateEventPage = () => {
 
       console.log("Calling createEvent...");
       await createEvent(formDataToSend, token);
-      console.log("Event created successfully");
+      showSuccess("Event created successfully");
 
       dispatch(resetForm());
       setImage(null);

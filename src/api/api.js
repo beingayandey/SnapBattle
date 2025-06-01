@@ -187,3 +187,24 @@ export const viewProfile = async (token) => {
   });
   return response.data;
 };
+
+export const createSubmission = async (data, token) => {
+  const formData = new FormData();
+  formData.append("event", data.event);
+  data.user_uploads.forEach((file, index) => {
+    formData.append("user_uploads", file); // Keep as 'user_uploads' to match Postman
+  });
+
+  const response = await axios.post(
+    `${baseUrl}/api/user/submission/create`,
+
+    formData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        // Remove manual Content-Type header; axios sets it automatically for FormData
+      },
+    }
+  );
+  return response.data;
+};

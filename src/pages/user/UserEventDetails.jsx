@@ -39,7 +39,7 @@ const UserEventDetails = () => {
         totalSubmissions={event.totalSubmissions}
       />
       <SubmissionGallery submissions={event.submissions} />
-      <UploadSection />
+      <UploadSection eventId={eventId} />
     </div>
   );
 };

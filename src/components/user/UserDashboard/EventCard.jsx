@@ -6,12 +6,16 @@ function EventCard({ event }) {
   const navigate = useNavigate();
 
   const handleJoinContest = () => {
-    navigate(`/user/event/${event.id}`);
+    navigate(`/user/event/${event._id}`);
   };
   return (
     <div className="event-card">
       <div className="event-image-container">
-        <img src={event.image} alt={event.title} className="event-image" />
+        <img
+          src={event?.banner?.url}
+          alt={event.title}
+          className="event-image"
+        />
         <div className="event-overlay">
           <button className="event-button" onClick={handleJoinContest}>
             Join Contest

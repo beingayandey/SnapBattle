@@ -12,9 +12,15 @@
   cursor: pointer;
   background: var(--bg-secondary);
   transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  position: relative;
 }
 
-.upload-form-drop-zone:hover {
+.upload-form-drop-zone.uploading {
+  cursor: not-allowed;
+  background: var(--bg-muted);
+}
+
+.upload-form-drop-zone:hover:not(.uploading) {
   background: var(--bg-main);
   border-color: var(--primary);
   transform: scale(1.02);
@@ -23,6 +29,17 @@
 .upload-form-drop-text {
   color: var(--text-muted);
   font-size: 1rem;
+  margin: 0;
+}
+
+.upload-form-spinner {
+  border: 4px solid var(--bg-main);
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
 }
 
 .upload-form-file-input {
@@ -57,9 +74,13 @@
   font-size: 1rem;
   cursor: pointer;
   transition: filter 0.2s, transform 0.2s;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.upload-form-submit-button:hover {
+.upload-form-submit-button:hover:not(:disabled) {
   filter: var(--button-hover);
   transform: translateY(-2px);
 }
@@ -68,6 +89,24 @@
   background: var(--text-muted);
   cursor: not-allowed;
   transform: none;
+}
+
+.upload-form-button-spinner {
+  border: 3px solid var(--bg-main);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes shake {
