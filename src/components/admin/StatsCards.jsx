@@ -1,18 +1,42 @@
 import React from "react";
 import clsx from "clsx";
 import { FaUsers, FaCalendar, FaImage, FaClock } from "react-icons/fa";
+import { getStats } from "../../api/listener";
 
 const StatsCards = ({ theme = "light" }) => {
+
+  const [stat, setStat] = React.useState(null);
+
+  React.useEffect(() => {
+    const socket = getStats(setStat);
+    return () => socket.disconnect();
+  }, []);
+
   const stats = [
-    { title: "Total Users", number: 1250, badge: "+5%", icon: <FaUsers /> },
-    { title: "Total Events", number: 45, badge: "+2", icon: <FaCalendar /> },
+    {
+      title: "Total Users",
+      number: stat?.total_users || 0,
+      badge: "+5%",
+      icon: <FaUsers />
+    },
+    {
+      title: "Total Events",
+      number: stat?.total_events || 0,
+      badge: "+2",
+      icon: <FaCalendar />
+    },
     {
       title: "Total Submissions",
-      number: 3200,
+      number: stat?.total_submissions || 0,
       badge: "+10%",
       icon: <FaImage />,
     },
-    { title: "Ongoing Events", number: 8, badge: "2 new", icon: <FaClock /> },
+    {
+      title: "Ongoing Events",
+      number: stat?.ongoing_events || 0,
+      badge: "2 new",
+      icon: <FaClock />
+    },
   ];
 
   return (
