@@ -88,7 +88,7 @@ const VerifyPhone = () => {
           )}
           <h2 className="verify-phone-title">Verify Your Phone Number</h2>
           <p className="verify-phone-message">
-            Please enter the 6-digit OTP sent to your phone number:{" "}
+            Please enter the 6-digit OTP sent to your phone number:
             <strong>{phoneNumber}</strong>
           </p>
           {error && <p className="error-message">{error}</p>}
