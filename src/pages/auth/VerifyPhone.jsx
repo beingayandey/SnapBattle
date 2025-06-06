@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { setPhoneVerificationStatus } from "../../redux/slices/verificationSlice";
 import { useToast } from "../../components/toast/ToastNotification";
 import OtpInput from "../auth/OtpInput";
-// import { sendPhoneOtp, verifyPhoneOtp } from "../../api/api";
+import { sendOtp, verifyOtp } from "../../api/api"; // Import the API functions
 import "./VerifyPhone.css";
 
 const VerifyPhone = () => {
@@ -12,7 +12,7 @@ const VerifyPhone = () => {
   const [loading, setLoading] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const [error, setError] = useState(null);
-  const phoneNumber = sessionStorage.getItem("phone") || "Not available";
+  const phoneNumber = sessionStorage.getItem("phone");
   const token = sessionStorage.getItem("token");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,56 +25,57 @@ const VerifyPhone = () => {
       navigate("/login");
       return;
     }
-    // handleSendOtp();
+    handleSendOtp(); // Automatically send OTP on page load
   }, []);
 
-  //   const handleSendOtp = async () => {
-  //     setLoading(true);
-  //     setError(null);
-  //     try {
-  //       await sendPhoneOtp({ token });
-  //       setOtpSent(true);
-  //       showSuccess("OTP sent to your phone number!");
-  //     } catch (err) {
-  //       setError(
-  //         err.response?.data?.message || "Failed to send OTP. Please try again."
-  //       );
-  //       showError(
-  //         err.response?.data?.message || "Failed to send OTP. Please try again."
-  //       );
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+  const handleSendOtp = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      await sendOtp(phoneNumber);
+      setOtpSent(true);
+      showSuccess("OTP sent to your phone number!");
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.errors ||
+        err.response?.data?.message ||
+        "Failed to send OTP. Please try again.";
+      if (errorMessage === "phone already verified") {
+        dispatch(setPhoneVerificationStatus(true));
+        showSuccess("Phone number already verified!");
+        navigate("/user/dashboard");
+      } else {
+        setError(errorMessage);
+        showError(errorMessage);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  //   const handleVerifyOtp = async () => {
-  //     if (!otp || otp.length !== 4) {
-  //       showError("Please enter a valid 4-digit OTP.");
-  //       return;
-  //     }
+  const handleVerifyOtp = async () => {
+    if (!otp || otp.length !== 6) {
+      showError("Please enter a valid 6-digit OTP.");
+      return;
+    }
 
-  //     setLoading(true);
-  //     setError(null);
-  //     try {
-  //       const response = await verifyPhoneOtp({ token, otp });
-  //       dispatch(setPhoneVerificationStatus(true));
-  //       showSuccess(
-  //         response.data.message || "Phone number verified successfully!"
-  //       );
-  //       navigate("/user/dashboard");
-  //     } catch (err) {
-  //       setError(
-  //         err.response?.data?.message ||
-  //           "OTP verification failed. Please try again."
-  //       );
-  //       showError(
-  //         err.response?.data?.message ||
-  //           "OTP verification failed. Please try again."
-  //       );
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await verifyOtp({ code: otp, channel: "phone" });
+      dispatch(setPhoneVerificationStatus(true));
+      showSuccess(response.message || "Phone number verified successfully!");
+      navigate("/user/dashboard");
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.message ||
+        "OTP verification failed. Please try again.";
+      setError(errorMessage);
+      showError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="verify-phone-container">
@@ -87,27 +88,27 @@ const VerifyPhone = () => {
           )}
           <h2 className="verify-phone-title">Verify Your Phone Number</h2>
           <p className="verify-phone-message">
-            Please enter the 4-digit OTP sent to your phone number:{" "}
+            Please enter the 6-digit OTP sent to your phone number:{" "}
             <strong>{phoneNumber}</strong>
           </p>
           {error && <p className="error-message">{error}</p>}
           <OtpInput
-            length={4}
+            length={6}
             onChange={(otpValue) => setOtp(otpValue)}
             disabled={loading}
           />
           <div className="otp-actions">
             <button
-              //   onClick={handleSendOtp}
+              onClick={handleSendOtp}
               className="resend-otp-button"
               disabled={loading}
             >
               {otpSent ? "Resend OTP" : "Send OTP"}
             </button>
             <button
-              //   onClick={handleVerifyOtp}
+              onClick={handleVerifyOtp}
               className="verify-otp-button"
-              disabled={loading || !otp || otp.length !== 4}
+              disabled={loading || !otp || otp.length !== 6}
             >
               Verify OTP
             </button>

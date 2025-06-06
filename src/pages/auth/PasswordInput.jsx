@@ -19,12 +19,10 @@ const PasswordInput = ({
       <div className="input-wrapper">
         <FiLock className="input-icon" />
         <input
-          type="text"
+          type={showPassword ? "text" : "password"} // ✅ this line fixed
           id={id}
           {...register(name)}
-          className={`input-field ${errors[name] ? "input-error" : ""} ${
-            !showPassword ? "password-mask" : ""
-          }`}
+          className={`input-field ${errors[name] ? "input-error" : ""}`}
           placeholder={placeholder}
           autoComplete={autoComplete}
           disabled={isLoading}

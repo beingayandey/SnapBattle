@@ -22,6 +22,47 @@
   position: relative; /* For positioning the overlay relative to content */
 }
 
+/* PhoneInput specific styles */
+.phone-input-container {
+  width: 100%;
+}
+input#phoneNumber {
+  width: 100%;
+  padding-left: 50px;
+}
+.react-phone-number-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.react-phone-number-input__input {
+  width: 100%;
+  padding: 12px 12px 12px 50px; /* Extra padding for country dropdown */
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #f5f5f5;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.react-phone-number-input__input.input-error {
+  border-color: red;
+}
+
+.country-dropdown {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+  padding: 12px;
+  margin-right: 0;
+}
+
+.react-phone-number-input__icon {
+  margin-left: 10px;
+}
 .loading-overlay {
   position: absolute;
   top: 0;

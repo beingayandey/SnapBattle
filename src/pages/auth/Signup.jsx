@@ -1,9 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import SignupForm from "./SignupForm";
 import useSignup from "./useSignup";
+import SignupForm from "./SignupForm";
+import { Link } from "react-router-dom";
 import "./Signup.css";
-
 const Signup = () => {
   const { isLoading, onSubmit } = useSignup();
 

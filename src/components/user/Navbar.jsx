@@ -37,6 +37,7 @@ function Navbar({ toggleSidebar }) {
       sessionStorage.removeItem("role");
       sessionStorage.removeItem("userId");
       sessionStorage.removeItem("justLoggedIn");
+      sessionStorage.removeItem("phone");
       dispatch(cleanupVerification());
       navigate("/login");
       setIsDropdownOpen(false);

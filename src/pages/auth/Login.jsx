@@ -48,7 +48,7 @@ const Login = () => {
       sessionStorage.setItem("role", response.data.user.roles[0]);
       sessionStorage.setItem("userId", response.data.user._id);
       sessionStorage.setItem("justLoggedIn", "true");
-
+      sessionStorage.setItem("phone", response.data.user.phone);
       // Update phone verification status in Redux and localStorage
       const isAdmin = response.data.user.roles.includes("admin");
       const isPhoneVerified = isAdmin
