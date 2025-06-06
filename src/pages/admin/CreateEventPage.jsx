@@ -30,6 +30,8 @@ const CreateEventPage = () => {
 
     if (name === "visibility") {
       finalValue = value === "public";
+    } else if (name === "upload_limit" || name === "upload_size") {
+      finalValue = parseInt(value, 10) || 0; // Ensure numeric value
     }
 
     console.log("Input Change:", { name, value: finalValue });
@@ -61,7 +63,7 @@ const CreateEventPage = () => {
       formDataToSend.append("category", formData.category || "");
       formDataToSend.append("rules", formData.rules || "");
       if (image) {
-        formDataToSend.append("banner", image); // Changed from "image" to "banner"
+        formDataToSend.append("banner", image);
       }
       formDataToSend.append(
         "start_date",
@@ -72,6 +74,8 @@ const CreateEventPage = () => {
         new Date(formData.end_date).toISOString()
       );
       formDataToSend.append("visibility", formData.visibility);
+      formDataToSend.append("upload_limit", formData.upload_limit || 0);
+      formDataToSend.append("upload_size", formData.upload_size || 0);
 
       console.log("FormData entries:");
       for (let [key, value] of formDataToSend.entries()) {
@@ -97,7 +101,9 @@ const CreateEventPage = () => {
     !formData.description?.trim() ||
     !formData.category ||
     !formData.start_date ||
-    !formData.end_date;
+    !formData.end_date ||
+    formData.upload_limit === undefined ||
+    formData.upload_size === undefined;
 
   const visibilityForUI = formData.visibility ? "public" : "private";
 
@@ -133,6 +139,30 @@ const CreateEventPage = () => {
               visibility={visibilityForUI}
               onChange={handleInputChange}
             />
+            <div className="form-group">
+              <label htmlFor="upload_limit">Upload Limit</label>
+              <input
+                type="number"
+                id="upload_limit"
+                name="upload_limit"
+                value={formData.upload_limit || ""}
+                onChange={handleInputChange}
+                min="0"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="upload_size">Upload Size (in KB)</label>
+              <input
+                type="number"
+                id="upload_size"
+                name="upload_size"
+                value={formData.upload_size || ""}
+                onChange={handleInputChange}
+                min="0"
+                required
+              />
+            </div>
           </div>
         </div>
         <div className="submit-button-container">
