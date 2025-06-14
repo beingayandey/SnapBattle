@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { FiUser, FiMail, FiPhone } from "react-icons/fi";
+import { FiUser, FiMail } from "react-icons/fi";
 import PasswordInput from "./PasswordInput";
 import TermsCheckbox from "./TermsCheckbox";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import axios from "axios";
 
 // Yup validation schema
 const schema = yup.object().shape({
@@ -31,10 +34,12 @@ const schema = yup.object().shape({
   phoneNumber: yup
     .string()
     .required("Phone Number is required")
-    .matches(/^\+?[\d\s-]{10,}$/, {
-      message: "Invalid phone number",
+    .matches(/^\+\d{10,}$/, {
+      message:
+        "Phone number must include country code and be at least 10 digits",
       excludeEmptyString: false,
     }),
+  countryCode: yup.string().required("Country code is required"),
   terms: yup
     .boolean()
     .oneOf([true], "You must agree to the Terms and Conditions")
@@ -47,12 +52,47 @@ const SignupForm = ({ onSubmit, isLoading }) => {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
+  const [countryCode, setCountryCode] = useState("us"); // Default to US
+  const [dialCode, setDialCode] = useState("+1"); // Default dial code for US
+  const [geoLoading, setGeoLoading] = useState(true);
+
+  // Fetch user's country based on IP
+  useEffect(() => {
+    const fetchCountry = async () => {
+      try {
+        const response = await axios.get("https://ipapi.co/json/");
+        const country = response.data.country_code?.toLowerCase() || "us";
+        const countryDialCode = response.data.country_calling_code || "+1";
+        setCountryCode(country);
+        setDialCode(countryDialCode);
+        setGeoLoading(false);
+      } catch (error) {
+        console.error("Error fetching geolocation:", error);
+        setCountryCode("us");
+        setDialCode("+1");
+        setGeoLoading(false);
+      }
+    };
+    fetchCountry();
+  }, []);
+
+  // Handle phone number change
+  const handlePhoneChange = (value, country) => {
+    // Clean the phone number: keep the "+" and digits only
+    const cleanedValue = "+" + value.replace(/\D/g, "").replace(/^(\d+)/, "$1");
+
+    setValue("phoneNumber", cleanedValue, { shouldValidate: true });
+    setValue("countryCode", `+${country.dialCode}`, { shouldValidate: true });
+  };
 
   const handleFormSubmit = (data) => {
+    // Debug: Log the form data to verify confirmPassword
+    console.log("Form Data:", data);
     onSubmit(data, reset);
   };
 
@@ -60,8 +100,9 @@ const SignupForm = ({ onSubmit, isLoading }) => {
     <form
       onSubmit={handleSubmit(handleFormSubmit)}
       className="signup-form"
-      disabled={isLoading}
+      disabled={isLoading || geoLoading}
     >
+      {geoLoading && <p className="loading-text">Loading country...</p>}
       <div className="input-group">
         <div className="input-wrapper">
           <FiUser className="input-icon" />
@@ -72,7 +113,7 @@ const SignupForm = ({ onSubmit, isLoading }) => {
             className={`input-field ${errors.fullName ? "input-error" : ""}`}
             placeholder="Full Name"
             autoComplete="off"
-            disabled={isLoading}
+            disabled={isLoading || geoLoading}
           />
         </div>
         {errors.fullName && (
@@ -90,7 +131,7 @@ const SignupForm = ({ onSubmit, isLoading }) => {
             className={`input-field ${errors.email ? "input-error" : ""}`}
             placeholder="Email"
             autoComplete="off"
-            disabled={isLoading}
+            disabled={isLoading || geoLoading}
           />
         </div>
         {errors.email && (
@@ -104,7 +145,7 @@ const SignupForm = ({ onSubmit, isLoading }) => {
         placeholder="Password"
         register={register}
         errors={errors}
-        isLoading={isLoading}
+        isLoading={isLoading || geoLoading}
         autoComplete="new-password"
       />
 
@@ -114,22 +155,32 @@ const SignupForm = ({ onSubmit, isLoading }) => {
         placeholder="Confirm Password"
         register={register}
         errors={errors}
-        isLoading={isLoading}
+        isLoading={isLoading || geoLoading}
         autoComplete="new-password"
       />
 
       <div className="input-group">
         <div className="input-wrapper">
-          <FiPhone className="input-icon" />
-          <input
-            type="tel"
-            id="phoneNumber"
-            {...register("phoneNumber")}
-            className={`input-field ${errors.phoneNumber ? "input-error" : ""}`}
-            placeholder="Phone Number"
-            autoComplete="tel"
-            disabled={isLoading}
+          <PhoneInput
+            country={countryCode}
+            inputProps={{
+              id: "phoneNumber",
+              name: "phoneNumber",
+              disabled: isLoading || geoLoading,
+              className: `input-field ${
+                errors.phoneNumber ? "input-error" : ""
+              }`,
+              autoComplete: "tel",
+            }}
+            onChange={handlePhoneChange}
+            placeholder="Enter phone number"
+            disabled={isLoading || geoLoading}
+            buttonClass="country-dropdown"
+            containerClass="phone-input-container"
+            enableSearch
+            disableDropdown={false}
           />
+          <input type="hidden" {...register("countryCode")} />
         </div>
         {errors.phoneNumber && (
           <p className="error-message">{errors.phoneNumber.message}</p>
@@ -139,10 +190,14 @@ const SignupForm = ({ onSubmit, isLoading }) => {
       <TermsCheckbox
         register={register}
         errors={errors}
-        isLoading={isLoading}
+        isLoading={isLoading || geoLoading}
       />
 
-      <button type="submit" className="submit-button" disabled={isLoading}>
+      <button
+        type="submit"
+        className="submit-button"
+        disabled={isLoading || geoLoading}
+      >
         {isLoading ? "Submitting..." : "Sign Up"}
       </button>
     </form>

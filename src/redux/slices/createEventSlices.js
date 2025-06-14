@@ -1,3 +1,4 @@
+// Updated Redux Slice
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -10,6 +11,8 @@ const initialState = {
     start_date: "",
     end_date: "",
     visibility: true, // true means "public" (default)
+    upload_limit: 0,
+    upload_size: 0,
   },
 };
 

@@ -113,13 +113,13 @@ export const sendOtp = async (value) => {
   return response.data;
 };
 
-export const verifyOtp = async (identifier, code, channel = "email") => {
-  const endpoint = "verify"; // Matches the screenshot
+export const verifyOtp = async ({ code, channel }) => {
+  const endpoint = "verify";
   const response = await axios.post(
     `${baseUrl}/api/auth/${endpoint}`,
     {
-      code, // e.g., "558861"
-      channel, // e.g., "phone" or "email"
+      code,
+      channel,
     },
     {
       headers: {
@@ -202,7 +202,6 @@ export const createSubmission = async (data, token) => {
     {
       headers: {
         Authorization: `Bearer ${token}`,
-        // Remove manual Content-Type header; axios sets it automatically for FormData
       },
     }
   );
