@@ -49,11 +49,8 @@ const CreateEventPage = () => {
 
     try {
       const token = sessionStorage.getItem("token");
-
       if (!token) throw new Error("Missing token. Please log in.");
-
       console.log("formData:", formData);
-
       const formDataToSend = new FormData();
       formDataToSend.append("title", formData.title || "");
       formDataToSend.append("subtitle", formData.description || "");
